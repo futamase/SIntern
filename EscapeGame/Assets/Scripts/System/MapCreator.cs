@@ -3,15 +3,13 @@ using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 
-public class NewBehaviourScript : MonoBehaviour
+public class MapCreator : MonoBehaviour
 {
 
     [SerializeField]
     private GameObject m_prefab;
 
     private List<List<GameObject>> m_stage = new List<List<GameObject>>();
-
-
 
     // Use this for initialization
     void Start()

@@ -8,10 +8,8 @@ public class GameManagerScript : SingletonMonoBehaviour<GameManagerScript>
     private GameObject m_Robot;
     private bool m_IsUsingPrincess = false;
 
-    [SerializeField]
     private int m_Row = 9;
 
-    [SerializeField]
     private int m_Col = 16;
 
 
@@ -24,6 +22,9 @@ public class GameManagerScript : SingletonMonoBehaviour<GameManagerScript>
 
     [SerializeField]
     private GameObject m_Prefab;
+
+    // ステージカウント
+    private int m_StageCount = 1;
 
     void Awake()
     {
@@ -59,6 +60,8 @@ public class GameManagerScript : SingletonMonoBehaviour<GameManagerScript>
 
     private void SetUseCharacter()
     {
+        m_Princess = m_Princess ?? GameObject.Find("Princess");
+        m_Robot = m_Robot ?? GameObject.Find("Robot");
         m_IsUsingPrincess = !m_IsUsingPrincess;
         m_Princess.GetComponent<PrincessScript>().ChangeCharacter(m_IsUsingPrincess);
         m_Robot.GetComponent<RobotScript>().ChangeCharacter(!m_IsUsingPrincess);
@@ -67,6 +70,18 @@ public class GameManagerScript : SingletonMonoBehaviour<GameManagerScript>
 
     void hoge()
     {
+        var reader = new CSVReader();
+        if(!reader.LoadFile("stage3"))
+        {
+            return;
+        }
+        var data = reader.GetData();
+
+        var stageData = Resources.Load<CommonDataSet>("CommonDataSet");
+        this.m_Row = (int)stageData.m_StageSize[m_StageCount-1].y;
+        this.m_Col = (int)stageData.m_StageSize[m_StageCount-1].x;
+        Debug.Log(m_Row + " " + m_Col);
+
         m_blockExistList = new bool[this.m_Row, this.m_Col];
         for (int i = 0; i < this.m_Row; i++)
         {
@@ -106,18 +121,19 @@ public class GameManagerScript : SingletonMonoBehaviour<GameManagerScript>
         {
             for(int j = 0; j < this.m_Col; j++)
             {
-                GameObject obj = new GameObject(i.ToString() + j.ToString());
-                SpriteRenderer renderer= obj.AddComponent<SpriteRenderer>();
-                renderer.sprite = m_S;
-                obj.transform.position = new Vector3(curX, curY, 0);
-                obj.transform.localScale = new Vector3(0.435f, 0.435f, 1);
+                if (data[i][j] != "")
+                {
+                    GameObject obj = new GameObject(i.ToString() + j.ToString());
+                    SpriteRenderer renderer = obj.AddComponent<SpriteRenderer>();
+                    renderer.sprite = Resources.Load<Sprite>("Texture/" + data[i][j]);
+                    obj.transform.position = new Vector3(curX, curY, 0);
+                    obj.transform.localScale = new Vector3(0.435f, 0.435f, 1);
 
-                obj.transform.parent = blocks.transform;
-                m_blockList.Add(obj);
-
+                    obj.transform.parent = blocks.transform;
+                    m_blockList.Add(obj);
+                    m_blockExistList[i, j] = true;
+                }
                 curX += m_OffsetX;
-
-                m_blockExistList[i, j] = true;
             }
             curX = startX;
             curY -= m_OffsetY; 
@@ -193,7 +209,17 @@ public class GameManagerScript : SingletonMonoBehaviour<GameManagerScript>
         }
         else
         {
+            if(!m_blockExistList[(int)pos.y, (int)pos.x + 1 * (int)tr.localScale.x])
+            {
+                Debug.Log("yo");
+                return;
+            }
 
+//            var topL = getScreenTopLeft();
+
+
+            
+            m_blockExistList[(int)pos.y, (int)pos.x + 1 * (int)tr.localScale.x] = false;
         }
     }
 
