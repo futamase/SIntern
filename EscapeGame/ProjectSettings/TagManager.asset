@@ -5,6 +5,10 @@ TagManager:
   serializedVersion: 2
   tags:
   - Block
+  - Key
+  - Wall
+  - Floor
+  - Ceiling
   layers:
   - Default
   - TransparentFX

@@ -45,8 +45,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Scripts\Manager\GameManagerScript.cs" />
      <Compile Include="Assets\Scripts\Player\PlayerBaseScript.cs" />
      <Compile Include="Assets\Scripts\Player\PrincessScript.cs" />
+     <Compile Include="Assets\Scripts\Player\RobotScript.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>

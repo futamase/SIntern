@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PrincessScript : PlayerBaseScript {
+public class RobotScript : PlayerBaseScript {
 
 	// Use this for initialization
 	void Start () {
