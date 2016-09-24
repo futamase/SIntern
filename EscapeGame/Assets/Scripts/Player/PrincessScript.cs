@@ -21,7 +21,7 @@ public class PrincessScript : PlayerBaseScript {
 	}
 
 	public override void Action(){
-		if (CheckKeyDistance ()) {
+		if (IsGetKey ()) {
 			return;
 		}
 		
@@ -32,7 +32,7 @@ public class PrincessScript : PlayerBaseScript {
 		}
 	}
 
-	private bool CheckKeyDistance(){
+	private bool IsGetKey(){
 		GameObject Key = GameObject.FindGameObjectWithTag ("Key");
 		if (!Key) {
 			return false;
@@ -52,12 +52,9 @@ public class PrincessScript : PlayerBaseScript {
 		m_HasKey = false;
 	}
 
-	private void GenerateBlock(){
-		Debug.Log ("Generate");
-        GameManagerScript.I.Action(this.transform, true);
-//		m_GameManagerScript.Action (this.transform, true);
-//		Vector3 pos = this.transform.position;
-//		Instantiate(m_Block, new Vector3(pos.x+ 1, pos.y-0.5f, 0), Quaternion.identity);
+	private void GenerateBlock(){		
+		Vector3 spriteSize = this.transform.FindChild("Sprite").GetComponent<SpriteRenderer>().bounds.size;
+		GameManagerScript.I.Action(this.transform, true, spriteSize);
 	}
 
 }
