@@ -19,7 +19,6 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000011121215768}
-  - 114: {fileID: 114000011501140140}
   m_Layer: 0
   m_Name: 276_fx_mdefense_up
   m_TagString: Untagged
@@ -69,6 +68,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000013066018868}
+  - 114: {fileID: 114000012990065404}
   m_Layer: 0
   m_Name: EnemyManager
   m_TagString: Untagged
@@ -146,7 +146,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000010398012104}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.0679287, y: 5, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
@@ -173,7 +173,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000012109278776}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.0679287, y: -5, z: 0}
+  m_LocalPosition: {x: 7, y: -5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
@@ -193,17 +193,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4000010531932500}
   m_RootOrder: 0
---- !u!114 &114000011501140140
+--- !u!114 &114000012990065404
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000010398012104}
+  m_GameObject: {fileID: 1000012109278776}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
+  m_Script: {fileID: 11500000, guid: 7e8cda3c4961a418985978f3e09a3836, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Enemy: {fileID: 1000012999207364, guid: f5f17265faa474bd991bd7abd0285b26, type: 2}
 --- !u!198 &198000010374922192
 ParticleSystem:
   m_ObjectHideFlags: 1

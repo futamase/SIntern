@@ -10,6 +10,10 @@ TagManager:
   - Floor
   - Ceiling
   - Enemy
+  - Switch
+  - Lift
+  - FixedBlock
+  - Door
   layers:
   - Default
   - TransparentFX
@@ -20,11 +24,11 @@ TagManager:
   - 
   - 
   - Player
-  - Key
-  - 
-  - 
-  - 
-  - 
+  - TouchGimic
+  - Enemy
+  - Princess
+  - Robot
+  - Lift
   - 
   - 
   - 

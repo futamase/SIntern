@@ -121,6 +121,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Editor\MapCreater.cs" />
+    <Compile Include="Assets\Editor\ScriptableObjectToAsset.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Demigiant\DOTween\DOTween.XML" />

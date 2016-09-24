@@ -10,7 +10,7 @@ public class RobotScript : PlayerBaseScript {
 		ChangeCharacter (false);
 
 	}
-	
+
 	// Update is called once per frame
 	new void Update () {
 		base.Update ();
@@ -21,7 +21,8 @@ public class RobotScript : PlayerBaseScript {
 	}
 
 	private void DestroyBlock(){
-		Debug.Log(this.transform.FindChild("Sprite").GetComponent<SpriteRenderer>().bounds.size.y);
+        GameManager.I.ActionRobo(transform, Input.GetKey(KeyCode.LeftShift));
+        //		Debug.Log(this.transform.FindChild("Sprite").GetComponent<SpriteRenderer>().bounds.size.y);
 //		m_GameManagerScript.Action (this.transform, false);
 //		GameObject TargetBlock = ChooseDestroyBlock ();
 //		if (TargetBlock) {
@@ -29,28 +30,22 @@ public class RobotScript : PlayerBaseScript {
 //		}
 	}
 
-//	private GameObject ChooseDestroyBlock(){
-//		GameObject[] AllBlocks = GameObject.FindGameObjectsWithTag ("Block");
-//		List<GameObject> CandidateBlocks = new List<GameObject> ();
-//		bool IsRight = this.transform.localScale.x > 0;
-//		float PosX = this.transform.position.x;
-//		foreach (GameObject o in AllBlocks){
-//			Vector3 BlockPos = o.transform.position;
-//			if (IsRight && BlockPos.x < PosX) {
-//				continue;
-//			} else if(!IsRight && BlockPos.x > PosX){
-//				continue;
-//			}
-//			if (Mathf.Abs (PosX - BlockPos.x) < 2) {
-//				CandidateBlocks.Add (o);
-//			}
-//		}
-//		if (CandidateBlocks.Count > 0){
-//			return CandidateBlocks [0];
-//		}else{
-//			return null;
-//		}
-//		
-//	}
+	void OnCollisionEnter(Collision collision) {
+		Debug.Log (collision);
+		switch (collision.transform.tag) {
+		case "Lift":
+			Dead ();
+			break;
+		default:
+			break;
+		}
+
+	}
+
+
+	new public void Reset(){
+		base.Reset ();
+		ChangeCharacter (false);
+	}
 
 }

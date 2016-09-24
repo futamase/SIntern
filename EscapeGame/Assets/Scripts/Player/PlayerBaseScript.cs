@@ -10,13 +10,15 @@ public class PlayerBaseScript : MonoBehaviour {
 	private float m_Speed = 5.0f;
 	private const float	GRAVITY = 20f;			// 重力
 	private bool m_IsUsing = true;
-	private bool m_IsAlibe = true;
+	private bool m_IsAlive = true;
+	private Vector3 m_firstPosition;
 
 
 	// Use this for initialization
 	public void Start () {
 		m_Controller = GetComponent<CharacterController>();
 		m_GameManagerScript = GameObject.Find ("GameManager").GetComponent<GameManagerScript> ();
+		m_firstPosition = this.transform.position;
 
 	}
 	
@@ -52,6 +54,39 @@ public class PlayerBaseScript : MonoBehaviour {
 
 	public virtual void Action(){
 		;
+	}
+
+	public void OnTriggerEnter(Collider other){
+		if (other.transform.tag == "Lift") {
+			this.Dead ();
+		}
+	}
+
+	public void Dead(){
+		Debug.Log ("Dead");
+		this.m_IsAlive = false;
+		Destroy (this.transform.gameObject);
+	}
+
+	public void Reset(){
+		this.transform.position = m_firstPosition;
+		this.m_IsAlive = true;
+	}
+
+	void OnControllerColliderHit(ControllerColliderHit hit) {
+		string tag = hit.transform.tag;
+
+		if (tag == "Block" || tag == "FixedBlock") {
+			if (this.transform.position.y+0.3f > hit.transform.position.y) {
+				if (m_Controller.stepOffset == 0) {
+					this.m_Controller.stepOffset = 0.85f;
+					this.m_Controller.slopeLimit = 90f;
+				}
+			} else {
+				this.m_Controller.stepOffset = 0.0f;
+				this.m_Controller.slopeLimit = 0;
+			}
+		}
 	}
 		
 }

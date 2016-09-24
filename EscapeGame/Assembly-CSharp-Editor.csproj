@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Editor\MapCreater.cs" />
+     <Compile Include="Assets\Editor\ScriptableObjectToAsset.cs" />
      <None Include="Assets\Resources\Effects\ImageEffects\Shaders\_BloomAndFlares\BlendOneOne.shader" />
      <None Include="Assets\Demigiant\DOTween\readme.txt" />
      <None Include="Assets\Resources\Effects\ImageEffects\Shaders\NoiseEffectShaderRGB.shader" />
@@ -138,26 +139,20 @@
  <Reference Include="UnityEngine.Analytics">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/UnityAnalytics/UnityEngine.Analytics.dll</HintPath>
  </Reference>
- <Reference Include="UnityEditor.Graphs">
- <HintPath>/Applications/Unity/Unity.app/Contents/Managed/UnityEditor.Graphs.dll</HintPath>
- </Reference>
- <Reference Include="UnityEditor.OSXStandalone.Extensions">
- <HintPath>/Applications/Unity/Unity.app/Contents/PlaybackEngines/MacStandaloneSupport/UnityEditor.OSXStandalone.Extensions.dll</HintPath>
- </Reference>
- <Reference Include="DOTweenEditor">
- <HintPath>/Users/masahiro/Documents/Unity/SIntern/EscapeGame/Assets/Demigiant/DOTween/Editor/DOTweenEditor.dll</HintPath>
- </Reference>
  <Reference Include="DOTween">
  <HintPath>/Users/masahiro/Documents/Unity/SIntern/EscapeGame/Assets/Demigiant/DOTween/DOTween.dll</HintPath>
  </Reference>
  <Reference Include="DOTween43">
  <HintPath>/Users/masahiro/Documents/Unity/SIntern/EscapeGame/Assets/Demigiant/DOTween/DOTween43.dll</HintPath>
  </Reference>
+ <Reference Include="DOTween46">
+ <HintPath>/Users/masahiro/Documents/Unity/SIntern/EscapeGame/Assets/Demigiant/DOTween/DOTween46.dll</HintPath>
+ </Reference>
  <Reference Include="DOTween50">
  <HintPath>/Users/masahiro/Documents/Unity/SIntern/EscapeGame/Assets/Demigiant/DOTween/DOTween50.dll</HintPath>
  </Reference>
- <Reference Include="DOTween46">
- <HintPath>/Users/masahiro/Documents/Unity/SIntern/EscapeGame/Assets/Demigiant/DOTween/DOTween46.dll</HintPath>
+ <Reference Include="DOTweenEditor">
+ <HintPath>/Users/masahiro/Documents/Unity/SIntern/EscapeGame/Assets/Demigiant/DOTween/Editor/DOTweenEditor.dll</HintPath>
  </Reference>
  <Reference Include="SyntaxTree.VisualStudio.Unity.Bridge">
  <HintPath>/Users/masahiro/Documents/Unity/SIntern/EscapeGame/Assets/UnityVS/Editor/SyntaxTree.VisualStudio.Unity.Bridge.dll</HintPath>
@@ -167,6 +162,12 @@
  </Reference>
  <Reference Include="UnityVS.VersionSpecific">
  <HintPath>/Users/masahiro/Documents/Unity/SIntern/EscapeGame/Assets/UnityVS/Editor/UnityVS.VersionSpecific.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEditor.Graphs">
+ <HintPath>/Applications/Unity/Unity.app/Contents/Managed/UnityEditor.Graphs.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEditor.OSXStandalone.Extensions">
+ <HintPath>/Applications/Unity/Unity.app/Contents/PlaybackEngines/MacStandaloneSupport/UnityEditor.OSXStandalone.Extensions.dll</HintPath>
  </Reference>
   </ItemGroup>
   <ItemGroup>

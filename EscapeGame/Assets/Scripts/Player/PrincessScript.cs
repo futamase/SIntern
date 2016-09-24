@@ -5,7 +5,7 @@ using DG.Tweening;
 public class PrincessScript : PlayerBaseScript {
 
 	//public GameObject m_Block;
-	private bool m_HasKey;
+	public bool m_HasKey;
 	public GameObject m_Key;
 
 	// Use this for initialization
@@ -24,6 +24,9 @@ public class PrincessScript : PlayerBaseScript {
 		if (IsGetKey ()) {
 			return;
 		}
+		if (IsPushSwitch ()) {
+			return;
+		}
 		
 		if (!m_HasKey) {
 			GenerateBlock ();
@@ -38,12 +41,35 @@ public class PrincessScript : PlayerBaseScript {
 			return false;
 		}
 		//GetKey
-		if (Mathf.Abs (Key.transform.position.x - this.transform.position.x) < 2) {
+		if (this.IsTouch(Key.transform.position)) {
 			Destroy (Key);
 			m_HasKey = true;
 			return true;
 		}
 		return false;
+	}
+
+	private bool IsPushSwitch(){
+		GameObject[] Switches = GameObject.FindGameObjectsWithTag ("Switch");
+		if (Switches.Length <= 0) {
+			return false;
+		}
+		foreach (GameObject o in Switches) {
+			if (this.IsTouch(o.transform.position)) {
+				o.SendMessage ("Push");
+				return true;
+			}
+		}
+		return false;
+	}
+
+	private bool IsTouch(Vector3 targetPos){
+		float distance = this.transform.position.x - targetPos.x;
+		if (this.transform.localScale.x > 0) {
+			return -2 < distance && distance < 0;
+		} else {
+			return 0 < distance && distance < 2;
+		}
 	}
 
 	private void PutKey(){
@@ -52,9 +78,44 @@ public class PrincessScript : PlayerBaseScript {
 		m_HasKey = false;
 	}
 
-	private void GenerateBlock(){		
-		Vector3 spriteSize = this.transform.FindChild("Sprite").GetComponent<SpriteRenderer>().bounds.size;
-		GameManagerScript.I.Action(this.transform, true, spriteSize);
+	private void GenerateBlock(){
+        //		Vector3 spriteSize = this.transform.FindChild("Sprite").GetComponent<SpriteRenderer>().bounds.size;
+        //		GameManagerScript.I.Action(this.transform, true, spriteSize);
+        GameManager.I.ActionHime(this.transform);
+	}
+
+	void OnCollisionEnter(Collision collision) {
+		Debug.Log (collision);
+		switch (collision.transform.tag) {
+		case "Enemy":
+			Dead ();
+			break;
+		case "Lift":
+			Dead ();
+			break;
+		case "Door":
+			if (this.m_HasKey) {
+				collision.transform.gameObject.SendMessage ("Goal");
+			}
+			break;
+		default:
+			break;
+		}
+
+	}
+
+	void OnTriggerEnter(Collider other){
+		base.OnTriggerEnter(other);
+		if(other.transform.tag == "Door"){
+			if (this.m_HasKey) {
+				other.transform.gameObject.SendMessage ("Goal");
+			}
+		}
+	}
+	new public void Reset(){
+		base.Reset ();
+		m_HasKey = false;
+		ChangeCharacter (true);
 	}
 
 }

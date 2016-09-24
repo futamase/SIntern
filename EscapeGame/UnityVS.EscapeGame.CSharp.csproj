@@ -70,24 +70,31 @@
     <Reference Include="DOTween43">
       <HintPath>Assets\Demigiant\DOTween\DOTween43.dll</HintPath>
     </Reference>
-    <Reference Include="DOTween50">
-      <HintPath>Assets\Demigiant\DOTween\DOTween50.dll</HintPath>
-    </Reference>
     <Reference Include="DOTween46">
       <HintPath>Assets\Demigiant\DOTween\DOTween46.dll</HintPath>
+    </Reference>
+    <Reference Include="DOTween50">
+      <HintPath>Assets\Demigiant\DOTween\DOTween50.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Demigiant\DOTween\Examples\Basics.cs" />
     <Compile Include="Assets\Demigiant\DOTween\Examples\Sequences.cs" />
+    <Compile Include="Assets\Scripts\Manager\GameManager.cs" />
     <Compile Include="Assets\Scripts\Manager\GameManagerScript.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerBaseScript.cs" />
     <Compile Include="Assets\Scripts\Player\PrincessScript.cs" />
     <Compile Include="Assets\Scripts\Player\RobotScript.cs" />
+    <Compile Include="Assets\Scripts\StageObjects\BlockScript.cs" />
+    <Compile Include="Assets\Scripts\StageObjects\DoorScript.cs" />
     <Compile Include="Assets\Scripts\StageObjects\EnemyScript.cs" />
+    <Compile Include="Assets\Scripts\StageObjects\LiftScript.cs" />
+    <Compile Include="Assets\Scripts\StageObjects\SwitchScript.cs" />
     <Compile Include="Assets\Scripts\System\CSVReader.cs" />
+    <Compile Include="Assets\Scripts\System\CommonDataSet.cs" />
     <Compile Include="Assets\Scripts\System\EnemyManagerScript.cs" />
-    <Compile Include="Assets\Scripts\System\NewBehaviourScript.cs" />
+    <Compile Include="Assets\Scripts\System\Int2.cs" />
+    <Compile Include="Assets\Scripts\System\MapCreator.cs" />
     <Compile Include="Assets\Scripts\System\SingletonMonoBehaviour.cs" />
     <Compile Include="Assets\Scripts\System\SoundManager.cs" />
   </ItemGroup>
