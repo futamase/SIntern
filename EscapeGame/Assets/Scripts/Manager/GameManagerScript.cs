@@ -23,7 +23,7 @@ public class GameManagerScript : SingletonMonoBehaviour<GameManagerScript>
     private bool[,] m_blockExistList;
 
 	private float m_LeftEnd;
-	private float m_RightEnd;
+	private float m_TopEnd;
 
 
     [SerializeField]
@@ -69,11 +69,14 @@ public class GameManagerScript : SingletonMonoBehaviour<GameManagerScript>
 		m_OffsetX = GameObject.FindGameObjectWithTag ("Block").GetComponent<SpriteRenderer> ().bounds.size.x;
 		m_OffsetY = GameObject.FindGameObjectWithTag ("Block").GetComponent<SpriteRenderer> ().bounds.size.y;
 
+		Debug.Log (height/m_OffsetY);
+
 		m_Col = (int)Mathf.Floor(width / m_OffsetX);
 		m_Row = (int)Mathf.Floor(height / m_OffsetY);
 
 		m_LeftEnd = topL.x + ((float)m_Col - (width / m_OffsetX)) / 2;
-		m_RightEnd = botR.x - ((float)m_Col - (width / m_OffsetX)) / 2;
+		m_TopEnd = topL.y + ((float)m_Row - (height / m_OffsetY));
+
 
 		m_blockExistList = new bool[this.m_Row, this.m_Col];
         for (int i = 0; i < this.m_Row; i++)
@@ -136,9 +139,9 @@ public class GameManagerScript : SingletonMonoBehaviour<GameManagerScript>
         {
             for(int j = 0; j < this.m_Col; j++)
             {
-				if(curX < pos.x + PosOffsetX && pos.x + PosOffsetX < curX + m_OffsetX)
+				if(curX < pos.x && pos.x < curX + m_OffsetX)
                 {
-					if(curY - m_OffsetY < pos.y - PosOffsetY && pos.y- PosOffsetY < curY)
+					if(curY - m_OffsetY < pos.y && pos.y < curY)
                     {
                         // プレイヤーの場所
                         ind.x = j;
@@ -164,22 +167,26 @@ public class GameManagerScript : SingletonMonoBehaviour<GameManagerScript>
 
         if(isPri)
         {
-            Debug.Log(tr.localScale);
 
 			int x = (int)pos.x + (1 * (int)tr.localScale.x);
-			Debug.Log (pos.x);
-			Debug.Log (x);
+			if (x < 0){
+				return;
+			}
 			int y = (int)pos.y;
-            // 隣にブロックがあれば
+			// 隣にブロックがあれば
 			if(m_blockExistList[y, x])
             {
                 Debug.Log("ya");
                 return;
             }
-            
+			Debug.Log ("Position");
+			Debug.Log (pos);
+			Debug.Log (x);
+			Debug.Log (y);
+
             var topL = getScreenTopLeft();
 
-			var obj = Instantiate(m_Block, new Vector3(m_LeftEnd + m_OffsetX * x, topL.y - m_OffsetY * y), Quaternion.identity) as GameObject;
+			var obj = Instantiate(m_Block, new Vector3(m_LeftEnd + (m_OffsetX/2) + m_OffsetX * x, m_TopEnd - m_OffsetY * y), Quaternion.identity) as GameObject;
 //            var obj = new GameObject(pos.y.ToString() + pos.x.ToString());
 //            var r = obj.AddComponent<SpriteRenderer>();
 //            r.sprite = m_S;
@@ -194,9 +201,13 @@ public class GameManagerScript : SingletonMonoBehaviour<GameManagerScript>
         }
         else
         {
-
+			DestroyBlock ();
         }
     }
+
+	public void DestroyBlock(){
+
+	}
 
     private Vector3 getScreenTopLeft()
     {
