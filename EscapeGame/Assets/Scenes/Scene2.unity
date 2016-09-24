@@ -433,6 +433,16 @@ Prefab:
       value: 
       objectReference: {fileID: 1000013109972738, guid: df33d17a2339e4c6188a2813f1b57e2b,
         type: 2}
+    - target: {fileID: 114000013802424018, guid: d8f07b2953198462cb5c2c4948ee8e19,
+        type: 2}
+      propertyPath: m_GeneratePoint.x
+      value: -8.88888
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000013802424018, guid: d8f07b2953198462cb5c2c4948ee8e19,
+        type: 2}
+      propertyPath: m_GeneratePoint.y
+      value: 5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d8f07b2953198462cb5c2c4948ee8e19, type: 2}
   m_IsPrefabParent: 0

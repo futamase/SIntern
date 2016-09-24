@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 using DG.Tweening;
 
 public class GameManager : SingletonMonoBehaviour<GameManager>
@@ -7,22 +8,25 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     // ステージを生成する矩形の左上の点の座標
     public Vector3 m_GeneratePoint;
 
-    private GameObject m_Princess;
-    private GameObject m_Robot;
-    private bool m_IsUsingPrincess = false;
-
     private int m_Row = 0;
     private int m_Col = 0;
 
     private float m_OffsetX, m_OffsetY;
 
-    private List<GameObject> m_blockList = new List<GameObject>();
-    private bool[,] m_blockExistList;
-
-    private float m_LeftEnd;
-    private float m_TopEnd;
-
+    // 今何ステージ目か
     private int m_StageCount = 1;
+
+    // ステージ毎のコンボ数
+    private int[] m_ComboList = new int[7];
+
+    // コンボ公開用
+    public int m_Combo
+    {
+        get
+        {
+            return m_ComboList[m_StageCount - 1];
+        }
+    }
 
     void Awake()
     {
@@ -33,10 +37,13 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
         }
 
         DontDestroyOnLoad(this.gameObject);
+
+        for (int i = 0; i < 7; i++)
+            m_ComboList[i] = 0;
     }
 
     // オブジェクトを配置
-    private void PutOn()
+    private void SetBlock()
     {
         CSVReader reader = new CSVReader();
         if (!reader.LoadFile("Stages/stage" + m_StageCount.ToString()))
@@ -65,26 +72,40 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     // Use this for initialization
     void Start()
     {
-        this.PutOn();
-        m_pri = GameObject.Find("Princess");
-        var objs = GameObject.FindObjectsOfType<PlayerBaseScript>();
-        for (int i = 0; i < objs.Length; i++)
-            Debug.Log(objs[i]);
+        SceneManager.sceneLoaded += this.CreateStage;
     }
+
+    void CreateStage(Scene scene, LoadSceneMode mode)
+    {
+        // TODO : シーンによってはこれを呼んではいけないので条件分岐する
+        this.SetBlock();
+    }
+
     GameObject m_pri;
 
     // Update is called once per frame
     void Update()
     {
-
-
+        if (Input.GetKeyDown(KeyCode.Return))
+        {
+            this.GotoNextStage();
+        }
     }
 
+    // 次のステージへ
+    public void GotoNextStage()
+    {
+        m_StageCount++;
+        SceneManager.LoadScene("Scene" + m_StageCount.ToString());
+    }
+
+    // 左端点を可視化
     void OnDrawGizmosSelected()
     {
         Gizmos.DrawSphere(m_GeneratePoint, 0.1f);
     }
 
+    // 対象のタイル的位置を返す
     Int2 GetPlayerPos(Vector3 pos)
     {
         for (int i = 0; i < m_Row; i++)
@@ -131,6 +152,8 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
                 GameObject obj = Resources.Load("Prefabs/Block") as GameObject;
                 var instance = Instantiate(obj, genePos, Quaternion.identity);
             });
+
+        m_ComboList[m_StageCount - 1]++;
     }
 
     // ロボアクション
@@ -145,7 +168,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
             Vector3.right * (int)tr.localScale.x,
             out hit,
             1f);
-        Debug.DrawRay( 
+        Debug.DrawRay(
             isPressedShift ? tr.position + new Vector3(0, 1f) : tr.position, // Shift押してたら上、else 下 
             Vector3.right * (int)tr.localScale.x, Color.blue, 1f);
 
@@ -164,7 +187,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
                 var three = hit.transform.FindChild("3");
 
                 DOTween.To(() => alpha, (x) => alpha = x, 0f, 0.5f)
-                    .OnUpdate(() => 
+                    .OnUpdate(() =>
                     {
                         var color = new Color(1, 1, 1, alpha);
                         zero.GetComponent<SpriteRenderer>().color = color;
@@ -177,6 +200,8 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
                         Destroy(hit.transform.gameObject);
                     });
             }
+
+            m_ComboList[m_StageCount - 1]++;
         }
     }
 
