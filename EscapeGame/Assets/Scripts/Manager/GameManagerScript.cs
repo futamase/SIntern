@@ -66,13 +66,16 @@ public class GameManagerScript : SingletonMonoBehaviour<GameManagerScript>
 		float width = botR.x - topL.x;
 		float height = topL.y - botR.y;
 
-		m_OffsetX = GameObject.FindGameObjectWithTag ("Block").GetComponent<SpriteRenderer> ().bounds.size.x;
-		m_OffsetY = GameObject.FindGameObjectWithTag ("Block").GetComponent<SpriteRenderer> ().bounds.size.y;
+        //		m_OffsetX = GameObject.FindGameObjectWithTag ("Block").GetComponent<SpriteRenderer> ().bounds.size.x;
+        //		m_OffsetY = GameObject.FindGameObjectWithTag ("Block").GetComponent<SpriteRenderer> ().bounds.size.y;
+        m_OffsetX = m_S.bounds.size.x;
+        m_OffsetY = m_S.bounds.size.y;
+        Debug.Log(m_OffsetX + " " + m_OffsetY);
 
 		Debug.Log (height/m_OffsetY);
 
-		m_Col = (int)Mathf.Floor(width / m_OffsetX);
-		m_Row = (int)Mathf.Floor(height / m_OffsetY);
+//		m_Col = (int)Mathf.Floor(width / m_OffsetX);
+//		m_Row = (int)Mathf.Floor(height / m_OffsetY);
 
 		m_LeftEnd = topL.x + ((float)m_Col - (width / m_OffsetX)) / 2;
 		m_TopEnd = topL.y + ((float)m_Row - (height / m_OffsetY));
@@ -92,33 +95,33 @@ public class GameManagerScript : SingletonMonoBehaviour<GameManagerScript>
 
         GameObject blocks = new GameObject("blocks");
 
-//		float startX = topL.x + (m_OffsetX / 2f);
-//		float startY = topL.y - (m_OffsetY / 2f);
+		float startX = topL.x + (m_OffsetX / 2f);
+		float startY = topL.y - (m_OffsetY / 2f);
 //      var scale = m_S.textureRect.size.x;
 //      Debug.Log(scale);
-//		float curX = startX;
-//		float curY = startY;
-//        //TODO
-//        for(int i = 0; i < this.m_Row - 1; i++)
-//        {
-//            for(int j = 0; j < this.m_Col; j++)
-//            {
-//                GameObject obj = new GameObject(i.ToString() + j.ToString());
-//                SpriteRenderer renderer= obj.AddComponent<SpriteRenderer>();
-//                renderer.sprite = m_S;
-//                obj.transform.position = new Vector3(curX, curY, 0);
-//                obj.transform.localScale = new Vector3(0.435f, 0.435f, 1);
-//
-//                obj.transform.parent = blocks.transform;
-//                m_blockList.Add(obj);
-//
-//                curX += m_OffsetX;
-//
-//                m_blockExistList[i, j] = true;
-//            }
-//            curX = startX;
-//            curY -= m_OffsetY; 
-//        }
+		float curX = startX;
+		float curY = startY;
+        //TODO
+        for(int i = 0; i < this.m_Row; i++)
+        {
+            for(int j = 0; j < this.m_Col; j++)
+            {
+                GameObject obj = new GameObject(i.ToString() + j.ToString());
+                SpriteRenderer renderer= obj.AddComponent<SpriteRenderer>();
+                renderer.sprite = m_S;
+                obj.transform.position = new Vector3(curX, curY, 0);
+ //               obj.transform.localScale = new Vector3(0.435f, 0.435f, 1);
+
+                obj.transform.parent = blocks.transform;
+ //               m_blockList.Add(obj);
+
+                curX += m_OffsetX;
+
+                m_blockExistList[i, j] = true;
+            }
+            curX = startX;
+            curY -= m_OffsetY; 
+        }
 //		Debug.Log(m_OffsetX);
 //		Debug.Log (m_OffsetY);
     }
@@ -167,7 +170,6 @@ public class GameManagerScript : SingletonMonoBehaviour<GameManagerScript>
 
         if(isPri)
         {
-
 			int x = (int)pos.x + (1 * (int)tr.localScale.x);
 			if (x < 0){
 				return;

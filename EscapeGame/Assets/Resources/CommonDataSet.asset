@@ -11,4 +11,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 511a0870ac620e247a692f461b217a4a, type: 3}
   m_Name: CommonDataSet
   m_EditorClassIdentifier: 
-  m_StageSize: []
+  m_StageSize:
+  - {x: 10, y: 8}
+  - {x: 11, y: 9}
+  - {x: 12, y: 9}
+  - {x: 14, y: 10}
+  - {x: 15, y: 10}
+  - {x: 17, y: 11}
+  - {x: 18, y: 11}
