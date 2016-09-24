@@ -18,13 +18,15 @@ public class PlayerBaseScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	public void Update () {
-		if (this.m_isUsing) {
-			Move ();
-		}
+		Move ();
 	}
 
 	void Move(){
-		m_Move = new Vector3(Input.GetAxis("Horizontal") * m_Speed , m_Move.y , 0.0f);		// 左右上下のキー入力を取得し、移動量に代入.
+		float x = 0.0f;
+		if (this.m_isUsing) {
+			x = Input.GetAxis ("Horizontal") * m_Speed;
+		}
+		m_Move = new Vector3(x, m_Move.y , 0.0f);		// 左右上下のキー入力を取得し、移動量に代入.
 		m_Move = transform.TransformDirection(m_Move);
 		//m_Move *= m_Speed;		// 移動速度を乗算.
 		//m_Move.y += y;

@@ -22,7 +22,7 @@ GameObject:
   - 33: {fileID: 33000011284636752}
   - 136: {fileID: 136000012825357374}
   - 23: {fileID: 23000013543995678}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Capsule
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -39,7 +39,7 @@ GameObject:
   - 4: {fileID: 4000012375368092}
   - 143: {fileID: 143000011415041998}
   - 114: {fileID: 114000012347340088}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Robot
   m_TagString: Player
   m_Icon: {fileID: 0}
