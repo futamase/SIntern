@@ -136,7 +136,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     // ロボアクション
     public void ActionRobo(Transform tr, bool isPressedShift)
     {
-        // transform.positionが、２マスの下側にあることを仮定
+        // transform.positionが、２マスの下側のマスにあることを仮定
         var p = this.GetPlayerPos(tr.position);
 
         RaycastHit hit;
@@ -155,7 +155,23 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
             // ブロックのときのみ壊す
             if (hit.transform.tag == "Block")
             {
-                hit.transform.DOScale(1f, 0.2f)
+                hit.transform.GetComponent<Animation>().Play();
+
+                float alpha = 1f;
+                var zero = hit.transform.FindChild("0");
+                var one = hit.transform.FindChild("1");
+                var two = hit.transform.FindChild("2");
+                var three = hit.transform.FindChild("3");
+
+                DOTween.To(() => alpha, (x) => alpha = x, 0f, 0.5f)
+                    .OnUpdate(() => 
+                    {
+                        var color = new Color(1, 1, 1, alpha);
+                        zero.GetComponent<SpriteRenderer>().color = color;
+                        one.GetComponent<SpriteRenderer>().color = color;
+                        two.GetComponent<SpriteRenderer>().color = color;
+                        three.GetComponent<SpriteRenderer>().color = color;
+                    })
                     .OnComplete(() =>
                     {
                         Destroy(hit.transform.gameObject);
