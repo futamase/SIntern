@@ -54,6 +54,7 @@ public class PrincessScript : PlayerBaseScript {
 
 	private void GenerateBlock(){
 		Debug.Log ("Generate");
+        GameManagerScript.I.Action(this.transform, true);
 //		m_GameManagerScript.Action (this.transform, true);
 //		Vector3 pos = this.transform.position;
 //		Instantiate(m_Block, new Vector3(pos.x+ 1, pos.y-0.5f, 0), Quaternion.identity);
