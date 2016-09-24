@@ -46,6 +46,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     private void SetBlock()
     {
         CSVReader reader = new CSVReader();
+		Debug.Log(reader.LoadFile("Stages/stage" + m_StageCount.ToString()));
         if (!reader.LoadFile("Stages/stage" + m_StageCount.ToString()))
             return;
 
@@ -72,6 +73,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     // Use this for initialization
     void Start()
     {
+		this.SetBlock ();
         SceneManager.sceneLoaded += this.CreateStage;
     }
 
@@ -130,18 +132,17 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
         RaycastHit hit;
         bool isHit = Physics.Raycast(tr.position, Vector3.right * (int)tr.localScale.x, out hit, 1);
         Debug.DrawRay(tr.position, Vector3.right * (int)tr.localScale.x, Color.blue, 1f);
-
-        if (isHit)
+		if (isHit)
             return;
 
         var p = this.GetPlayerPos(tr.position);
-
         // 範囲外チェック
         if (p.x == -1 || p.y == -1)
             return;
 
         // 生成する
         var x = p.x + (int)tr.localScale.x;
+
 
         Vector3 wannaBePos = new Vector3(m_GeneratePoint.x + p.x + 0.5f, m_GeneratePoint.y - p.y - 0.5f);
 

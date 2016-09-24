@@ -79,7 +79,7 @@ public class PlayerBaseScript : MonoBehaviour {
 		if (tag == "Block" || tag == "FixedBlock") {
 			if (this.transform.position.y+0.3f > hit.transform.position.y) {
 				if (m_Controller.stepOffset == 0) {
-					this.m_Controller.stepOffset = 0.85f;
+					this.m_Controller.stepOffset = 0.7f;
 					this.m_Controller.slopeLimit = 90f;
 				}
 			} else {
