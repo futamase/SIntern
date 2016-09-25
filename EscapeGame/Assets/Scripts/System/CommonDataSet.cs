@@ -4,6 +4,7 @@ using System.Collections;
 public class CommonDataSet : ScriptableObject {
 
     public Vector2[] m_StageSize;
+    public Vector3[] m_GeneratePoints;
 
 	// Use this for initialization
 	void Start () {

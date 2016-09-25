@@ -63,12 +63,13 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
         if (!reader.LoadFile("Stages/stage" + m_StageCount.ToString()))
             return;
 
-        var topLeft = m_GeneratePoint;//this.getScreenTopLeft();
-
         var data = reader.GetData();
 
         var commonData = Resources.Load<CommonDataSet>("CommonDataSet");
 
+        m_GeneratePoint = commonData.m_GeneratePoints[m_StageCount - 1];//m_GeneratePoint;//this.getScreenTopLeft();
+        var topLeft = m_GeneratePoint;
+        
         m_Row = (int)commonData.m_StageSize[m_StageCount-1].y;
         m_Col = (int)commonData.m_StageSize[m_StageCount-1].x;
 
@@ -183,11 +184,12 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
         }
     }
 
-
     // 次のステージへ
     public void GotoNextStage()
     {
         m_StageCount++;
+        m_StaticObjectsParent = null;
+        m_DynamicObjectsParent = null;
         SceneManager.LoadScene("Scene" + m_StageCount.ToString());
     }
 
@@ -233,6 +235,9 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
         // 生成する
         var x = p.x + (int)tr.localScale.x;
 
+        // 生成する位置が範囲外だったらダメ
+        if (x == -1 || x == m_Col)
+            return;
 
         Vector3 wannaBePos = new Vector3(m_GeneratePoint.x + p.x + 0.5f, m_GeneratePoint.y - p.y - 0.5f);
 
@@ -256,12 +261,12 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
 
         RaycastHit hit;
         bool isHit = Physics.Raycast(
-            isPressedShift ? tr.position + new Vector3(0, 1f) : tr.position, // Shift押してたら上、else 下 
+            isPressedShift ? tr.position + new Vector3(0, 0.5f) : tr.position - new Vector3(0, 0.5f), // Shift押してたら上、else 下 
             Vector3.right * (int)tr.localScale.x,
             out hit,
             1f);
         Debug.DrawRay(
-            isPressedShift ? tr.position + new Vector3(0, 1f) : tr.position, // Shift押してたら上、else 下 
+            isPressedShift ? tr.position + new Vector3(0, 0.5f) : tr.position - new Vector3(0, 0.5f), // Shift押してたら上、else 下 
             Vector3.right * (int)tr.localScale.x, Color.blue, 1f);
 
         if (isHit)
