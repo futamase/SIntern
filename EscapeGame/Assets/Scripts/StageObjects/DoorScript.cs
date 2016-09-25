@@ -3,7 +3,7 @@ using System.Collections;
 
 public class DoorScript : MonoBehaviour {
 
-	private bool m_IsOpen = false;
+	//private bool m_IsOpen = false;
 
 	// Use this for initialization
 	void Start () {
@@ -16,12 +16,12 @@ public class DoorScript : MonoBehaviour {
 	}	
 		
 	void Goal(){
-		this.m_IsOpen = true;
-		Debug.Log ("GOOOOOOOOOOOOOOOOOOAL");
-        GameManager.I.GotoNextStage();
+		SoundManager.I.PlaySE("door_squeak");
+		//this.m_IsOpen = true;
+		GameManager.I.GotoNextStage();
 	}
 
 	public void Reset(){
-		this.m_IsOpen = false;
+		//this.m_IsOpen = false;
 	}
 }

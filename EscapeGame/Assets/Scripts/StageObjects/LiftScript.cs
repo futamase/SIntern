@@ -24,6 +24,7 @@ public class LiftScript : MonoBehaviour {
 		if (this.m_IsMoving) {
 			return;
 		}
+		SoundManager.I.PlaySE("anchor_chain");
 		StartCoroutine (MoveCoroutine (distance, isDown));
 	}
 
@@ -49,7 +50,6 @@ public class LiftScript : MonoBehaviour {
 	} 
 
 	void OnTriggerEnter(Collider other){
-		Debug.Log (other.transform.tag);
 		m_IsCollision = true;
 	}
 

@@ -84,8 +84,7 @@ public class PrincessScript : PlayerBaseScript {
 	}
 
 	private void GenerateBlock(){
-        //		Vector3 spriteSize = this.transform.FindChild("Sprite").GetComponent<SpriteRenderer>().bounds.size;
-        //		GameManagerScript.I.Action(this.transform, true, spriteSize);
+		
         GameManager.I.ActionHime(this.transform);
 	}
 //

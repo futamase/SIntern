@@ -22,12 +22,6 @@ public class RobotScript : PlayerBaseScript {
 
 	private void DestroyBlock(){
         GameManager.I.ActionRobo(transform, Input.GetKey(KeyCode.LeftShift));
-        //		Debug.Log(this.transform.FindChild("Sprite").GetComponent<SpriteRenderer>().bounds.size.y);
-//		m_GameManagerScript.Action (this.transform, false);
-//		GameObject TargetBlock = ChooseDestroyBlock ();
-//		if (TargetBlock) {
-//			Destroy (TargetBlock);
-//		}
 	}
 
 	void OnCollisionEnter(Collision collision) {

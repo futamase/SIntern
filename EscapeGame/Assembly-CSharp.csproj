@@ -54,6 +54,7 @@
      <Compile Include="Assets\Scripts\Player\PrincessScript.cs" />
      <Compile Include="Assets\Scripts\Player\RobotScript.cs" />
      <Compile Include="Assets\Scripts\StageObjects\BlockScript.cs" />
+     <Compile Include="Assets\Scripts\StageObjects\BossScript.cs" />
      <Compile Include="Assets\Scripts\StageObjects\DoorScript.cs" />
      <Compile Include="Assets\Scripts\StageObjects\EnemyScript.cs" />
      <Compile Include="Assets\Scripts\StageObjects\LiftScript.cs" />
