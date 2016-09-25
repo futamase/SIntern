@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class EnemyManagerScript : MonoBehaviour {
+public class SpawnerScript : MonoBehaviour {
 
 	public const int ENEMY_MAX = 3;
 	public const float GENERATE_TIME = 5.0f;
