@@ -90,7 +90,7 @@ public class PlayerBaseScript : MonoBehaviour {
 			r = 0.75f;
 			offsetY = 0.3f;
 		}else if(this.transform.gameObject.name == "Robot"){
-			r = 2.0f;
+			r = 2.1f;
 			offsetY = 1.5f;
 		}
 			
