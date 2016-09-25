@@ -103,13 +103,11 @@ public class PlayerBaseScript : MonoBehaviour {
 					if (pos.y + offsetY < col.transform.position.y) {
 						if (0 < transform.localScale.x && pos.x < col.transform.position.x ||
 						   0 > transform.localScale.x && pos.x > col.transform.position.x) {
-							Debug.Log (col.transform.gameObject.name);
 							isDownThrough = true;
 						}
 					}
 				}
 			}
-			Debug.Log (isDownThrough);
 			if (!isDownThrough) {
 				if (m_Controller.stepOffset == 0) {
 					this.m_Controller.stepOffset = 0.8f;

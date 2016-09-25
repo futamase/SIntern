@@ -90,14 +90,15 @@
     <Compile Include="Assets\Scripts\StageObjects\DoorScript.cs" />
     <Compile Include="Assets\Scripts\StageObjects\EnemyScript.cs" />
     <Compile Include="Assets\Scripts\StageObjects\LiftScript.cs" />
+    <Compile Include="Assets\Scripts\StageObjects\SpawnerScript.cs" />
     <Compile Include="Assets\Scripts\StageObjects\SwitchScript.cs" />
     <Compile Include="Assets\Scripts\System\CSVReader.cs" />
     <Compile Include="Assets\Scripts\System\CommonDataSet.cs" />
     <Compile Include="Assets\Scripts\System\Int2.cs" />
+    <Compile Include="Assets\Scripts\System\MainCanvasScript.cs" />
     <Compile Include="Assets\Scripts\System\MapCreator.cs" />
     <Compile Include="Assets\Scripts\System\SingletonMonoBehaviour.cs" />
     <Compile Include="Assets\Scripts\System\SoundManager.cs" />
-    <Compile Include="Assets\Scripts\System\SpawnerScript.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Demigiant\DOTween\DOTween.XML" />

@@ -96,6 +96,10 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
 
     }
 
+	public void CallReset(){
+		StartCoroutine(ResetStage());
+	}
+
     // ステージをリセットする
     System.Collections.IEnumerator ResetStage()
     {
@@ -150,10 +154,10 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Return))
+/*        if (Input.GetKeyDown(KeyCode.Return))
         {
             StartCoroutine(this.ResetStage());
-        }
+        }*/
 
         m_ComboText.text = "Act " + m_ComboList[m_StageCount - 1].ToString();
     }
