@@ -2,19 +2,21 @@
 using System.Collections;
 using UnityEngine.UI;
 
-public class MainCanvasScript : SingletonMonoBehaviour<MainCanvasScript> {
+public class PauseCanvasScript : SingletonMonoBehaviour<PauseCanvasScript> {
 
+	[SerializeField]
 	private GameObject ResetUI;
+	[SerializeField]
 	private GameObject GameOverUI;
 
 	// Use this for initialization
 	void Start () {
-		ResetUI = this.transform.FindChild ("Reset").gameObject;
-		GameOverUI = this.transform.FindChild ("GameOver").gameObject;
+		//ResetUI = this.transform.FindChild ("Reset").gameObject;
+		//GameOverUI = this.transform.FindChild ("GameOver").gameObject;
 
-		ResetUI.transform.FindChild("ResetButton").GetComponent<Button>().onClick.AddListener (() => Reset());
-		ResetUI.transform.FindChild("CancelButton").GetComponent<Button>().onClick.AddListener (() => PauseCancel());
-		GameOverUI.transform.FindChild("RetryButton").GetComponent<Button>().onClick.AddListener (() => Reset());
+		ResetUI.transform.FindChild("ResetButton").GetComponent<Button>().onClick.AddListener (Reset);
+		ResetUI.transform.FindChild("CancelButton").GetComponent<Button>().onClick.AddListener (PauseCancel);
+		GameOverUI.transform.FindChild("RetryButton").GetComponent<Button>().onClick.AddListener (Reset);
 
 	}
 	
@@ -32,7 +34,7 @@ public class MainCanvasScript : SingletonMonoBehaviour<MainCanvasScript> {
 		ResetUI.SetActive (true);
 	}
 
-	void Reset(){
+	public void Reset(){
 		PauseCancel ();
 		GameManager.I.CallReset();
 	}

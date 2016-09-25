@@ -8,7 +8,7 @@ public class PlayerBaseScript : MonoBehaviour {
 	private CharacterController m_Controller;
 	public GameManagerScript m_GameManagerScript;
 	private Vector3	m_Move = Vector3.zero;
-	private float m_Speed = 5.0f;
+	private float m_Speed = 2.5f;
 	private const float	GRAVITY = 1f;			// 重力
 	private bool m_IsUsing = true;
 	private bool m_IsAlive = true;
@@ -108,9 +108,10 @@ public class PlayerBaseScript : MonoBehaviour {
 			foreach (Collider col in colliders) {
 				if (m_ClimbTags.Contains (col.transform.tag)) {
 					Vector3 pos = transform.position;
+					float xLimit = col.transform.tag == "Lift" ? 2.0f : 1.3f;
 					float diff = col.transform.position.y - pos.y;
 					if (minY < diff && diff < maxY && 
-						Mathf.Abs(col.transform.position.x - pos.x) < 1.3f) {
+						Mathf.Abs(col.transform.position.x - pos.x) < xLimit) {
 						if (0 < transform.localScale.x && pos.x < col.transform.position.x ||
 						   0 > transform.localScale.x && pos.x > col.transform.position.x) {
 							isDownThrough = true;

@@ -95,8 +95,8 @@
     <Compile Include="Assets\Scripts\System\CSVReader.cs" />
     <Compile Include="Assets\Scripts\System\CommonDataSet.cs" />
     <Compile Include="Assets\Scripts\System\Int2.cs" />
-    <Compile Include="Assets\Scripts\System\MainCanvasScript.cs" />
     <Compile Include="Assets\Scripts\System\MapCreator.cs" />
+    <Compile Include="Assets\Scripts\System\PauseCanvasScript.cs" />
     <Compile Include="Assets\Scripts\System\SingletonMonoBehaviour.cs" />
     <Compile Include="Assets\Scripts\System\SoundManager.cs" />
   </ItemGroup>
