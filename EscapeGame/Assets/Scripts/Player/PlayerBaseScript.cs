@@ -9,7 +9,7 @@ public class PlayerBaseScript : MonoBehaviour {
 	public GameManagerScript m_GameManagerScript;
 	private Vector3	m_Move = Vector3.zero;
 	private float m_Speed = 5.0f;
-	private const float	GRAVITY = 10f;			// 重力
+	private const float	GRAVITY = 1f;			// 重力
 	private bool m_IsUsing = true;
 	private bool m_IsAlive = true;
 	private Vector3 m_firstPosition;
@@ -90,7 +90,7 @@ public class PlayerBaseScript : MonoBehaviour {
 			r = 0.75f;
 			offsetY = 0.3f;
 		}else if(this.transform.gameObject.name == "Robot"){
-			r = 1.75f;
+			r = 2.0f;
 			offsetY = 1.5f;
 		}
 			
@@ -103,13 +103,11 @@ public class PlayerBaseScript : MonoBehaviour {
 					if (pos.y + offsetY < col.transform.position.y) {
 						if (0 < transform.localScale.x && pos.x < col.transform.position.x ||
 						   0 > transform.localScale.x && pos.x > col.transform.position.x) {
-							Debug.Log (col.transform.gameObject.name);
 							isDownThrough = true;
 						}
 					}
 				}
 			}
-			Debug.Log (isDownThrough);
 			if (!isDownThrough) {
 				if (m_Controller.stepOffset == 0) {
 					this.m_Controller.stepOffset = 0.8f;
