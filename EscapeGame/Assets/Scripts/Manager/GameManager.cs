@@ -1,8 +1,24 @@
 ﻿using UnityEngine;
+using System.Text;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using DG.Tweening;
 using UnityEngine.UI;
+
+public static class CustomStringBuilder
+{
+    private static StringBuilder builder;
+
+    public static void Append(string str)
+    {
+        builder.Append(str);
+    }
+
+    public static string Get()
+    {
+        return builder.ToString();
+    } 
+}
 
 public class GameManager : SingletonMonoBehaviour<GameManager>
 {
@@ -127,7 +143,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
         m_FloorCountText = go.transform.FindChild("FloorCount").GetComponent<Text>();
         m_ComboText = go.transform.FindChild("ActCount").GetComponent<Text>();
 
-        m_FloorCountText.text = "猫である";
+        m_FloorCountText.text = "Floor " + m_StageCount.ToString();
     }
 
     // ステージシーンでステージを生成する(ステージ間移動シーン等はこれを呼んではいけない)
@@ -153,6 +169,9 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
         {
             StartCoroutine(this.ResetStage());
         }
+
+        var builder = new StringBuilder();
+        m_ComboText.text = 
     }
 
     // ブロックの中から鍵とかブロックの中からスイッチとかした時にこれで登録したい
