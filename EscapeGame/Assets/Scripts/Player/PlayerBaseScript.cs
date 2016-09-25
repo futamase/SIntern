@@ -102,7 +102,7 @@ public class PlayerBaseScript : MonoBehaviour {
 			minY = 1.45f;
 		}
 			
-		if (tag == "Block" || tag == "FixedBlock") {
+		if (m_ClimbTags.Contains (tag)) {
 			Collider[] colliders = Physics.OverlapSphere (this.transform.position, r);
 			bool isDownThrough = false;
 			foreach (Collider col in colliders) {
@@ -113,7 +113,6 @@ public class PlayerBaseScript : MonoBehaviour {
 						Mathf.Abs(col.transform.position.x - pos.x) < 1.3f) {
 						if (0 < transform.localScale.x && pos.x < col.transform.position.x ||
 						   0 > transform.localScale.x && pos.x > col.transform.position.x) {
-							Debug.Log (col.transform.position.y - pos.y);
 							isDownThrough = true;
 						}
 					}

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class MainCanvasScript : SingletonMonoBehaviour<MainCanvasScript> {
 
@@ -11,8 +12,9 @@ public class MainCanvasScript : SingletonMonoBehaviour<MainCanvasScript> {
 		ResetUI = this.transform.FindChild ("Reset").gameObject;
 		GameOverUI = this.transform.FindChild ("GameOver").gameObject;
 
-		Debug.Log (ResetUI.activeSelf);
-		Debug.Log (GameOverUI.activeSelf);
+		ResetUI.transform.FindChild("ResetButton").GetComponent<Button>().onClick.AddListener (() => Reset());
+		ResetUI.transform.FindChild("CancelButton").GetComponent<Button>().onClick.AddListener (() => PauseCancel());
+		GameOverUI.transform.FindChild("RetryButton").GetComponent<Button>().onClick.AddListener (() => Reset());
 
 	}
 	
@@ -20,8 +22,8 @@ public class MainCanvasScript : SingletonMonoBehaviour<MainCanvasScript> {
 	void Update () {
 		if (Input.GetKeyDown(KeyCode.Return))
         {
-			//ResetPause ();
-			Reset();
+			ResetPause ();
+			//Reset();
         }
 	}
 
@@ -31,10 +33,12 @@ public class MainCanvasScript : SingletonMonoBehaviour<MainCanvasScript> {
 	}
 
 	void Reset(){
+		PauseCancel ();
 		GameManager.I.CallReset();
 	}
 
 	public void GameOver(){
+		Time.timeScale = 0;
 		GameOverUI.SetActive (true);
 	}
 
