@@ -90,8 +90,8 @@ public class PlayerBaseScript : MonoBehaviour {
 			r = 0.75f;
 			offsetY = 0.3f;
 		}else if(this.transform.gameObject.name == "Robot"){
-			r = 2.0f;
-			offsetY = 1.5f;
+			r = 1.8f;
+			offsetY = 1.3f;
 		}
 			
 		if (tag == "Block" || tag == "FixedBlock") {
@@ -100,7 +100,8 @@ public class PlayerBaseScript : MonoBehaviour {
 			foreach (Collider col in colliders) {
 				if (m_ClimbTags.Contains (col.transform.tag)) {
 					Vector3 pos = transform.position;
-					if (pos.y + offsetY < col.transform.position.y) {
+					if (pos.y + offsetY < col.transform.position.y && 
+						Mathf.Abs(col.transform.position.x - pos.x) < 1.3f) {
 						if (0 < transform.localScale.x && pos.x < col.transform.position.x ||
 						   0 > transform.localScale.x && pos.x > col.transform.position.x) {
 							isDownThrough = true;
