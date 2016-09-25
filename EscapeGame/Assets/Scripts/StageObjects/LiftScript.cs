@@ -7,6 +7,7 @@ public class LiftScript : MonoBehaviour {
 
 	private bool m_IsCollision;
 	private bool m_IsMoving;
+    [SerializeField]
 	private bool m_IsDown;
 
 	// Use this for initialization

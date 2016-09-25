@@ -151,7 +151,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_TargetLift: {fileID: 0}
-  m_MoveDistance: 4
+  m_MoveDistance: 3
 --- !u!212 &212000014200450742
 SpriteRenderer:
   m_ObjectHideFlags: 1

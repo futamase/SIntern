@@ -16,7 +16,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     private float m_OffsetX, m_OffsetY;
 
     // 今何ステージ目か
-    private int m_StageCount = 4;
+    private int m_StageCount = 1;
 
     // ステージ毎のコンボ数
     private int[] m_ComboList = new int[7];
@@ -24,6 +24,8 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
 
     private GameObject m_StaticObjectsParent;
     private GameObject m_DynamicObjectsParent;
+
+    private GameObject m_Prelude;
 
     // UI テキスト
     private Text m_FloorCountText, m_ComboText;
@@ -46,7 +48,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     {
         if (this != I)
         {
-            Destroy(this);
+            Destroy(this.gameObject);
             return;
         }
 
@@ -54,6 +56,9 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
 
         for (int i = 0; i < 7; i++)
             m_ComboList[i] = 0;
+
+        m_Prelude = transform.Find("Prelude").gameObject;
+        m_Prelude.SetActive(false);
     }
 
     // オブジェクトを配置
@@ -72,7 +77,6 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
 
         m_Row = (int)commonData.m_StageSize[m_StageCount - 1].y;
         m_Col = (int)commonData.m_StageSize[m_StageCount - 1].x;
-        Debug.Log(m_Row + " " + m_Col);
 
         m_StaticObjectsParent = m_StaticObjectsParent ?? new GameObject("StaticParent");
         m_DynamicObjectsParent = m_DynamicObjectsParent ?? new GameObject("DynamicParent");
@@ -175,13 +179,14 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
         m_FloorCountText = go.transform.FindChild("FloorCount").GetComponent<Text>();
         m_ComboText = go.transform.FindChild("ActCount").GetComponent<Text>();
 
-        m_FloorCountText.text = "Floor " + m_StageCount.ToString();
+        m_FloorCountText.text = "Floor " + (8-m_StageCount).ToString();
     }
 
     // ロードシーンのフロア名を管理しつつ、アニメーションが終わり次第次のステージへ
     void SetLoadScene()
     {
-        GameObject.Find("Canvas").transform.FindChild("Floor").GetComponent<Text>().text = "Floor " + (8 - m_StageCount).ToString();
+        GameObject.Find("Canvas").transform.FindChild("Floor").GetComponent<Text>().text =
+            "Floor " + (7 - (m_StageCount)).ToString();
         float dummy = 0;
         DOTween.To(() => dummy, (x) => dummy = x, 1, 3f)
             .OnComplete(() =>
@@ -210,7 +215,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
         m_FloorCountText = go.transform.FindChild("FloorCount").GetComponent<Text>();
         m_ComboText = go.transform.FindChild("ActCount").GetComponent<Text>();
 
-        m_FloorCountText.text = "Floor " + m_StageCount.ToString();
+        m_FloorCountText.text = "Floor " + (8-m_StageCount).ToString();
 
         SoundManager.I.PlayBGM("title");
     }
@@ -290,6 +295,19 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
         m_ComboText = null;
         m_FloorCountText = null;
         SceneManager.LoadScene("Scene" + m_StageCount.ToString());
+
+        m_Prelude.SetActive(true);
+        Time.timeScale = 0f;
+        m_Prelude.transform.FindChild("Text").GetComponent<Text>().text = "Floor " + (8 - m_StageCount).ToString();
+        var image = m_Prelude.transform.FindChild("RawImage").GetComponent<RawImage>();
+        image.DOColor(new Color(0, 0, 0, 0), 2f)
+            .SetEase(Ease.InExpo)
+            .OnComplete(() =>
+            {
+                Time.timeScale = 1f;
+                m_Prelude.SetActive(false);
+                image.color = new Color(0, 0, 0, 0.5f);
+            });
     }
 
     // 左端点を可視化
