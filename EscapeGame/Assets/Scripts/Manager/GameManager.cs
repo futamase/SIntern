@@ -16,7 +16,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     private float m_OffsetX, m_OffsetY;
 
     // 今何ステージ目か
-    private int m_StageCount = 3;
+    private int m_StageCount = 4;
 
     // ステージ毎のコンボ数
     private int[] m_ComboList = new int[7];
@@ -155,10 +155,10 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     // Update is called once per frame
     void Update()
     {
-/*        if (Input.GetKeyDown(KeyCode.Return))
+        if (Input.GetKeyDown(KeyCode.Return))
         {
             StartCoroutine(this.ResetStage());
-        }*/
+        }
 
         m_ComboText.text = "Act " + m_ComboList[m_StageCount - 1].ToString();
     }
