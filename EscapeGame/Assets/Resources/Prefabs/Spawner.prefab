@@ -70,7 +70,7 @@ GameObject:
   - 4: {fileID: 4000013066018868}
   - 114: {fileID: 114000012990065404}
   m_Layer: 0
-  m_Name: EnemyManager
+  m_Name: Spawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
