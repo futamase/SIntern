@@ -54,4 +54,8 @@ MonoBehaviour:
   m_BGM:
   - {fileID: 8300000, guid: 872dbba4b191b7c4ba2aedd9b241bb97, type: 3}
   - {fileID: 8300000, guid: 87f4af6c5028a25438a5b0d71781130e, type: 3}
-  m_SE: []
+  m_SE:
+  - {fileID: 8300000, guid: 7d3e213558cc30347937d0025f980923, type: 3}
+  - {fileID: 8300000, guid: 3d9f0ef6fbdfb2b48bc188d600eca3b1, type: 3}
+  - {fileID: 8300000, guid: e581b5f8717d4fa4cbe59c4db96f6dbb, type: 3}
+  - {fileID: 8300000, guid: f42fc54aa33df2844af1ef580e66dbe7, type: 3}

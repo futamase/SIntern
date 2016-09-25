@@ -9,6 +9,17 @@ public class PauseCanvasScript : SingletonMonoBehaviour<PauseCanvasScript> {
 	[SerializeField]
 	private GameObject GameOverUI;
 
+	void Awake()
+	{
+		if (this != I)
+		{
+			Destroy(this);
+			return;
+		}
+
+		DontDestroyOnLoad(this.gameObject);
+	}
+
 	// Use this for initialization
 	void Start () {
 		//ResetUI = this.transform.FindChild ("Reset").gameObject;
