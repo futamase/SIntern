@@ -124,8 +124,7 @@ public class PrincessScript : PlayerBaseScript {
 		case "Enemy":
 			Dead ();
 			break;
-		case "Lift":
-			Dead ();
+		default:
 			break;
 		}
 	}
