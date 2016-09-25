@@ -19,6 +19,7 @@ public class DoorScript : MonoBehaviour {
 	void Goal(){
 		this.m_IsOpen = true;
 		Debug.Log ("GOOOOOOOOOOOOOOOOOOAL");
+        GameManager.I.GotoNextStage();
 	}
 
 	public void Reset(){

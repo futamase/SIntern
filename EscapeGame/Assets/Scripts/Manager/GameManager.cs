@@ -19,6 +19,8 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     // ステージ毎のコンボ数
     private int[] m_ComboList = new int[7];
 
+    private GameObject m_StaticObjects;
+
     // コンボ公開用
     public int m_Combo
     {
@@ -46,7 +48,6 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     private void SetBlock()
     {
         CSVReader reader = new CSVReader();
-		Debug.Log(reader.LoadFile("Stages/stage" + m_StageCount.ToString()));
         if (!reader.LoadFile("Stages/stage" + m_StageCount.ToString()))
             return;
 
@@ -54,12 +55,14 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
 
         var data = reader.GetData();
 
-        m_Row = data.Count;
-        m_Col = data[0].Count;
+        var commonData = Resources.Load<CommonDataSet>("CommonDataSet");
 
-        for (int i = 0; i < data.Count; i++)
+        m_Row = (int)commonData.m_StageSize[m_StageCount-1].y;
+        m_Col = (int)commonData.m_StageSize[m_StageCount-1].x;
+
+        for (int i = 0; i < m_Row; i++)
         {
-            for (int j = 0; j < data[i].Count; j++)
+            for (int j = 0; j < m_Col; j++)
             {
                 if (data[i][j] != "")
                 {
@@ -179,29 +182,17 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
             // ブロックのときのみ壊す
             if (hit.transform.tag == "Block")
             {
-                hit.transform.GetComponent<Animation>().Play();
-
                 float alpha = 1f;
-                var zero = hit.transform.FindChild("0");
-                var one = hit.transform.FindChild("1");
-                var two = hit.transform.FindChild("2");
-                var three = hit.transform.FindChild("3");
 
-                DOTween.To(() => alpha, (x) => alpha = x, 0f, 0.5f)
-                    .OnUpdate(() =>
-                    {
-                        var color = new Color(1, 1, 1, alpha);
-                        zero.GetComponent<SpriteRenderer>().color = color;
-                        one.GetComponent<SpriteRenderer>().color = color;
-                        two.GetComponent<SpriteRenderer>().color = color;
-                        three.GetComponent<SpriteRenderer>().color = color;
-                    })
+                hit.transform.GetComponent<SpriteRenderer>().enabled = false;
+                var particle = hit.transform.GetComponentInChildren<ParticleSystem>();
+                particle.Play();
+                DOTween.To(() => alpha, (x) => alpha = x, 0, 0.5f)
                     .OnComplete(() =>
                     {
                         Destroy(hit.transform.gameObject);
                     });
             }
-
             m_ComboList[m_StageCount - 1]++;
         }
     }

@@ -47,6 +47,7 @@
   <ItemGroup>
      <Compile Include="Assets\Demigiant\DOTween\Examples\Basics.cs" />
      <Compile Include="Assets\Demigiant\DOTween\Examples\Sequences.cs" />
+     <Compile Include="Assets\Resources\Scripts\Common\FXController.cs" />
      <Compile Include="Assets\Scripts\Manager\GameManager.cs" />
      <Compile Include="Assets\Scripts\Manager\GameManagerScript.cs" />
      <Compile Include="Assets\Scripts\Player\PlayerBaseScript.cs" />
