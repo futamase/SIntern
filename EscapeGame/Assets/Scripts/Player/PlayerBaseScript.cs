@@ -82,19 +82,19 @@ public class PlayerBaseScript : MonoBehaviour {
 	List<string> m_NGTags = new List<string>(){"Block","FixedBlock"};
 
 	void OnControllerColliderHit(ControllerColliderHit hit) {
-		string tag = hit.transform.tag;
-		if (this.transform.gameObject.name != "Princess") {
-			return;
-		}
-		if (tag == "Block" || tag == "FixedBlock") {
-			Collider[] colliders = Physics.OverlapSphere (this.transform.position, 2.5f);
-			foreach (Collider col in colliders) {
-				Debug.Log ("--------");
-				Debug.Log (col.transform.parent.tag);
-				Debug.Log (col.transform.position);
-				Debug.Log (col.transform.parent.gameObject.name);
-			}
-			Debug.Log ("=============");
+//		string tag = hit.transform.tag;
+//		if (this.transform.gameObject.name != "Princess") {
+//			return;
+//		}
+//		if (tag == "Block" || tag == "FixedBlock") {
+//			Collider[] colliders = Physics.OverlapSphere (this.transform.position, 2.5f);
+//			foreach (Collider col in colliders) {
+//				Debug.Log ("--------");
+//				Debug.Log (col.transform.parent.tag);
+//				Debug.Log (col.transform.position);
+//				Debug.Log (col.transform.parent.gameObject.name);
+//			}
+//			Debug.Log ("=============");
 /*			if (hit.transform.position.y < this.transform.position.y) {
 				return;
 			}
@@ -130,7 +130,7 @@ public class PlayerBaseScript : MonoBehaviour {
 //				this.m_Controller.stepOffset = 0.0f;
 //				this.m_Controller.slopeLimit = 0;
 //			}*/
-		}
+//		}
 	}
 		
 }

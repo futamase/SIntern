@@ -5,21 +5,6 @@ using UnityEngine.SceneManagement;
 using DG.Tweening;
 using UnityEngine.UI;
 
-public static class CustomStringBuilder
-{
-    private static StringBuilder builder;
-
-    public static void Append(string str)
-    {
-        builder.Append(str);
-    }
-
-    public static string Get()
-    {
-        return builder.ToString();
-    } 
-}
-
 public class GameManager : SingletonMonoBehaviour<GameManager>
 {
     // ステージを生成する矩形の左上の点の座標
@@ -152,15 +137,15 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
         // TODO : シーンによってはこれを呼んではいけないので条件分岐する
         this.SetBlock();
 
-        var prefab = Resources.Load("StageInfoCanvas") as GameObject;
+        var prefab = Resources.Load("Prefabs/StageInfoCanvas") as GameObject;
         var go = Instantiate(prefab);
         m_FloorCountText = go.transform.FindChild("FloorCount").GetComponent<Text>();
         m_ComboText = go.transform.FindChild("ActCount").GetComponent<Text>();
 
-        m_FloorCountText.text = "猫である";
-    }
+        m_FloorCountText.text = "Floor " + m_StageCount.ToString();
 
-    GameObject m_pri;
+        SoundManager.I.PlayBGM("title");
+    }
 
     // Update is called once per frame
     void Update()
@@ -170,8 +155,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
             StartCoroutine(this.ResetStage());
         }
 
-        var builder = new StringBuilder();
-        m_ComboText.text = 
+        m_ComboText.text = "Act " + m_ComboList[m_StageCount - 1].ToString();
     }
 
     // ブロックの中から鍵とかブロックの中からスイッチとかした時にこれで登録したい
