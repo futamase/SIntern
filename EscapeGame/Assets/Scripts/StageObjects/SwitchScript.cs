@@ -15,6 +15,9 @@ public class SwitchScript : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		animator = this.GetComponent<Animator> ();
+		if (m_TargetLift == null) {
+			m_TargetLift = GameObject.FindGameObjectWithTag ("Lift");
+		}
 
 	}
 	

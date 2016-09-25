@@ -89,7 +89,7 @@ public class PrincessScript : PlayerBaseScript {
 	}
 
 	void OnTriggerEnter(Collider other){
-		base.OnTriggerEnter(other);
+		//base.OnTriggerEnter(other);
 		if(other.transform.tag == "Door"){
 			if (this.m_HasKey) {
 				other.transform.gameObject.SendMessage ("Goal");

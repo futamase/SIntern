@@ -7,6 +7,7 @@ public class LiftScript : MonoBehaviour {
 
 	private bool m_IsCollision;
 	private bool m_IsMoving;
+	private bool m_IsDown;
 
 	// Use this for initialization
 	void Start () {
@@ -31,6 +32,7 @@ public class LiftScript : MonoBehaviour {
 	// コルーチン  
 	private IEnumerator MoveCoroutine(float distance, bool isDown) {
 		m_IsMoving = true;
+		m_IsDown = isDown;
 		float limit = isDown ? m_firstPosition.y - distance : m_firstPosition.y;
 		float diff = isDown ? -0.1f : 0.1f;
 		for (int i = 0; i < distance*10; i++) {
@@ -46,19 +48,21 @@ public class LiftScript : MonoBehaviour {
 			}
 		}
 		m_IsMoving = false;
+		m_IsDown = false;
 		yield return null;
 	} 
 
-	void OnTriggerEnter(Collider other){
+
+	void OnCollisionEnter(Collision collision){
 		m_IsCollision = true;
+		Debug.Log (collision.transform.tag);
 	}
-//
-//	void OnCollisionEnter(Collision collision){
-//		m_IsCollision = true;
-//		Debug.Log (collision.transform.tag);
-//	}
 
 	public void Reset(){
 		this.transform.position = this.m_firstPosition;
+	}
+
+	public bool IsLiftDown(){
+		return this.m_IsDown;
 	}
 }

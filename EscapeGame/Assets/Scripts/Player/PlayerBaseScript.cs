@@ -61,11 +61,11 @@ public class PlayerBaseScript : MonoBehaviour {
 		;
 	}
 
-	public void OnTriggerEnter(Collider other){
-		if (other.transform.tag == "Lift") {
-			this.Dead ();
-		}
-	}
+//	public void OnTriggerEnter(Collider other){
+//		if (other.transform.tag == "Lift") {
+//			this.Dead ();
+//		}
+//	}
 
 	public void Dead(){
 		Debug.Log ("Dead");
@@ -89,8 +89,16 @@ public class PlayerBaseScript : MonoBehaviour {
 	List<string> m_ClimbTags = new List<string>(){"Block","FixedBlock","Lift"};
 
 	public void OnControllerColliderHit(ControllerColliderHit hit) {
-		
+
 		string tag = hit.transform.tag;
+		Debug.Log (tag);
+		//
+		if (tag == "Lift") {
+			Debug.Log (hit.transform.GetComponent<LiftScript> ().IsLiftDown ());
+			IsPressedCheck (hit.transform);
+		}
+
+		//
 		float r = 0f;
 		float maxY = 0;
 		float minY = 0;
@@ -141,42 +149,11 @@ public class PlayerBaseScript : MonoBehaviour {
 				}
 			}
 
-				/*			if (hit.transform.position.y < this.transform.position.y) {
-				return;
-			}
-			bool canThrough = false;
-			Vector3 pos = transform.position;
-			if (this.transform.gameObject.name == "Princess") {
-				RaycastHit rHit;
-				bool isHit = Physics.Raycast (pos, Vector3.right * (int)transform.localScale.x, out rHit, 1);
-				canThrough = (!isHit || !m_NGTags.Contains (rHit.transform.tag));
-			} else if (this.transform.gameObject.name == "Robot") {
-				RaycastHit rHit;
-				RaycastHit rHit2;
-				bool isHit = Physics.Raycast (pos, Vector3.right * (int)transform.localScale.x, out rHit, 1);
-				bool isHit2 = Physics.Raycast (new Vector3(pos.x, pos.y+1.0f, pos.z), Vector3.right * (int)transform.localScale.x, out rHit2, 1);
-				canThrough = (!isHit || !m_NGTags.Contains (rHit.transform.tag)) && (!isHit2 || !m_NGTags.Contains (rHit2.transform.tag));
-			}
-			Debug.DrawRay(transform.position, Vector3.right * (int)transform.localScale.x, Color.blue, 1f);
-			if (!canThrough) {
-				return;
-			}
-			float x = Input.GetAxis ("Horizontal");
-			float value =  x > 0 ? 0.03f : -0.03f;
-			value = x == 0 ? 0 : value;
-			this.transform.position += new Vector3 (value, 0, 0);
-
-			//Debug.Log(hit.transform.position > );
-//			if (this.transform.position.y+0.3f > hit.transform.position.y) {
-//				if (m_Controller.stepOffset == 0) {
-//					this.m_Controller.stepOffset = 0.7f;
-//					this.m_Controller.slopeLimit = 90f;
-//				}
-//			} else {
-//				this.m_Controller.stepOffset = 0.0f;
-//				this.m_Controller.slopeLimit = 0;
-//			}*/
 		}
+	}
+
+	void IsPressedCheck(Transform tr){
+		Debug.Log (tr.position.x + tr.localScale.x / 2);
 	}
 		
 }
