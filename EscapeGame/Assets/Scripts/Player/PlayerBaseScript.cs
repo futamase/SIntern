@@ -9,7 +9,7 @@ public class PlayerBaseScript : MonoBehaviour {
 	public GameManagerScript m_GameManagerScript;
 	private Vector3	m_Move = Vector3.zero;
 	private float m_Speed = 5.0f;
-	private const float	GRAVITY = 20f;			// 重力
+	private const float	GRAVITY = 10f;			// 重力
 	private bool m_IsUsing = true;
 	private bool m_IsAlive = true;
 	private Vector3 m_firstPosition;
@@ -79,23 +79,41 @@ public class PlayerBaseScript : MonoBehaviour {
 		;
 	}
 
-	List<string> m_NGTags = new List<string>(){"Block","FixedBlock"};
+	List<string> m_ClimbTags = new List<string>(){"Block","FixedBlock","Lift"};
 
 	void OnControllerColliderHit(ControllerColliderHit hit) {
-//		string tag = hit.transform.tag;
-//		if (this.transform.gameObject.name != "Princess") {
-//			return;
-//		}
-//		if (tag == "Block" || tag == "FixedBlock") {
-//			Collider[] colliders = Physics.OverlapSphere (this.transform.position, 2.5f);
-//			foreach (Collider col in colliders) {
-//				Debug.Log ("--------");
-//				Debug.Log (col.transform.parent.tag);
-//				Debug.Log (col.transform.position);
-//				Debug.Log (col.transform.parent.gameObject.name);
-//			}
-//			Debug.Log ("=============");
-/*			if (hit.transform.position.y < this.transform.position.y) {
+		
+		string tag = hit.transform.tag;
+		if (this.transform.gameObject.name != "Princess") {
+			return;
+		}
+		if (tag == "Block" || tag == "FixedBlock") {
+			Collider[] colliders = Physics.OverlapSphere (this.transform.position, 0.75f);
+			bool isDownThrough = false;
+			foreach (Collider col in colliders) {
+				Debug.Log (col.transform.tag);
+				if (m_ClimbTags.Contains (col.transform.tag)) {
+					Vector3 pos = transform.position;
+					if (pos.y + 0.3 < col.transform.position.y) {
+						Debug.Log ("up");
+						if (0 < transform.localScale.x && pos.x < col.transform.position.x ||
+						   0 > transform.localScale.x && pos.x > col.transform.position.x) {
+							isDownThrough = true;
+						}
+					}
+				}
+			}
+			if (!isDownThrough) {
+				if (m_Controller.stepOffset == 0) {
+					this.m_Controller.stepOffset = 0.8f;
+					this.m_Controller.slopeLimit = 90f;
+				}
+			} else {
+				this.m_Controller.stepOffset = 0.0f;
+				this.m_Controller.slopeLimit = 0;
+			}
+
+				/*			if (hit.transform.position.y < this.transform.position.y) {
 				return;
 			}
 			bool canThrough = false;
@@ -130,7 +148,7 @@ public class PlayerBaseScript : MonoBehaviour {
 //				this.m_Controller.stepOffset = 0.0f;
 //				this.m_Controller.slopeLimit = 0;
 //			}*/
-//		}
+		}
 	}
 		
 }
