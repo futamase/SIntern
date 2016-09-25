@@ -34,7 +34,9 @@ public class BlockScript : MonoBehaviour {
 	void OnDestroy(){
 		if (m_IsHidden && !m_IsQuitting) {
 			Vector3 pos = this.transform.position;
-			Instantiate(m_Obj, new Vector3(pos.x, pos.y, 0), Quaternion.identity);
+			var go = Instantiate(m_Obj, new Vector3(pos.x, pos.y, 0), Quaternion.identity) as GameObject;
+
+            GameManager.I.AddGameObject(go, GameManager.Type.Static);
 		}
 	}
 

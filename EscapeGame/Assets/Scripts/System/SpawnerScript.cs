@@ -18,7 +18,9 @@ public class SpawnerScript : MonoBehaviour {
 		m_LeftTime += Time.deltaTime;
 		if (m_LeftTime > GENERATE_TIME) {
 			if (GameObject.FindGameObjectsWithTag ("Enemy").Length < ENEMY_MAX) {
-				Instantiate(m_Enemy, this.transform.position, Quaternion.identity);
+				var go = Instantiate(m_Enemy, this.transform.position, Quaternion.identity) as GameObject;
+
+                GameManager.I.AddGameObject(go, GameManager.Type.Dynamic);
 			}
 			m_LeftTime = 0;
 		}

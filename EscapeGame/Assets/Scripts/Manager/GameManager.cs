@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using DG.Tweening;
+using UnityEngine.UI;
 
 public class GameManager : SingletonMonoBehaviour<GameManager>
 {
@@ -19,7 +20,16 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     // ステージ毎のコンボ数
     private int[] m_ComboList = new int[7];
 
-    private GameObject m_StaticObjects;
+    private GameObject m_StaticObjectsParent;
+    private GameObject m_DynamicObjectsParent;
+
+    // UI テキスト
+    private Text m_FloorCountText, m_ComboText;
+
+    public enum Type
+    {
+        Static, Dynamic
+    }
 
     // コンボ公開用
     public int m_Combo
@@ -48,7 +58,6 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     private void SetBlock()
     {
         CSVReader reader = new CSVReader();
-		Debug.Log(reader.LoadFile("Stages/stage" + m_StageCount.ToString()));
         if (!reader.LoadFile("Stages/stage" + m_StageCount.ToString()))
             return;
 
@@ -61,6 +70,9 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
         m_Row = (int)commonData.m_StageSize[m_StageCount-1].y;
         m_Col = (int)commonData.m_StageSize[m_StageCount-1].x;
 
+        m_StaticObjectsParent = m_StaticObjectsParent ?? new GameObject("StaticParent");
+        m_DynamicObjectsParent = m_DynamicObjectsParent ?? new GameObject("DynamicParent");
+
         for (int i = 0; i < m_Row; i++)
         {
             for (int j = 0; j < m_Col; j++)
@@ -68,10 +80,39 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
                 if (data[i][j] != "")
                 {
                     GameObject obj = Resources.Load("Prefabs/" + data[i][j]) as GameObject;
-                    Instantiate(obj, new Vector3(topLeft.x + j + 0.5f, topLeft.y - (i + 0.5f)), Quaternion.identity);
+                    var go = Instantiate(obj, 
+                         new Vector3(topLeft.x + j + 0.5f, topLeft.y - (i + 0.5f)), 
+                         Quaternion.identity) as GameObject;
+                    this.AddGameObject(go, Type.Static);
                 }
             }
         }
+    }
+
+    private void UpdateUI()
+    {
+
+    }
+
+    // ステージをリセットする
+    System.Collections.IEnumerator ResetStage()
+    {
+        if (m_StaticObjectsParent == null || m_DynamicObjectsParent == null)
+            yield return null;
+
+        m_ComboList[m_StageCount - 1] = 0; // コンボ数をリセット
+
+        Destroy(m_StaticObjectsParent);
+        m_StaticObjectsParent = null;
+
+        Destroy(m_DynamicObjectsParent);
+        m_DynamicObjectsParent = null;
+
+        yield return new WaitForSeconds(0.5f);
+
+        this.SetBlock();
+        GameObject.FindObjectOfType<PrincessScript>().Reset();
+        GameObject.FindObjectOfType<RobotScript>().Reset();
     }
 
     // Use this for initialization
@@ -79,12 +120,27 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     {
 		this.SetBlock ();
         SceneManager.sceneLoaded += this.CreateStage;
+
+        var prefab = Resources.Load("Prefabs/StageInfoCanvas") as GameObject;
+        var go = Instantiate(prefab);
+        m_FloorCountText = go.transform.FindChild("FloorCount").GetComponent<Text>();
+        m_ComboText = go.transform.FindChild("ActCount").GetComponent<Text>();
+
+        m_FloorCountText.text = "猫である";
     }
 
+    // ステージシーンでステージを生成する(ステージ間移動シーン等はこれを呼んではいけない)
     void CreateStage(Scene scene, LoadSceneMode mode)
     {
         // TODO : シーンによってはこれを呼んではいけないので条件分岐する
         this.SetBlock();
+
+        var prefab = Resources.Load("StageInfoCanvas") as GameObject;
+        var go = Instantiate(prefab);
+        m_FloorCountText = go.transform.FindChild("FloorCount").GetComponent<Text>();
+        m_ComboText = go.transform.FindChild("ActCount").GetComponent<Text>();
+
+        m_FloorCountText.text = "猫である";
     }
 
     GameObject m_pri;
@@ -94,9 +150,31 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     {
         if (Input.GetKeyDown(KeyCode.Return))
         {
-            this.GotoNextStage();
+            StartCoroutine(this.ResetStage());
         }
     }
+
+    // ブロックの中から鍵とかブロックの中からスイッチとかした時にこれで登録したい
+    public void AddGameObject(GameObject go, Type type)
+    {
+        if (m_StaticObjectsParent == null)
+            return;
+
+        if (type == Type.Static)
+        {
+            go.transform.parent = m_StaticObjectsParent.transform;
+            return;
+        }
+
+        if (m_DynamicObjectsParent == null)
+            return;
+
+        if(type == Type.Dynamic)
+        {
+            go.transform.parent = m_DynamicObjectsParent.transform;
+        }
+    }
+
 
     // 次のステージへ
     public void GotoNextStage()
@@ -155,7 +233,8 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
             {
                 Vector3 genePos = new Vector3(m_GeneratePoint.x + x + 0.5f, m_GeneratePoint.y - p.y - 0.5f);
                 GameObject obj = Resources.Load("Prefabs/Block") as GameObject;
-                var instance = Instantiate(obj, genePos, Quaternion.identity);
+                var instance = Instantiate(obj, genePos, Quaternion.identity) as GameObject;
+                this.AddGameObject(instance, Type.Dynamic);
             });
 
         m_ComboList[m_StageCount - 1]++;
@@ -179,16 +258,16 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
 
         if (isHit)
         {
-            Debug.Log("当たり");
             // ブロックのときのみ壊す
             if (hit.transform.tag == "Block")
             {
                 float alpha = 1f;
 
                 hit.transform.GetComponent<SpriteRenderer>().enabled = false;
+                hit.transform.GetComponent<BoxCollider>().enabled = false;
                 var particle = hit.transform.GetComponentInChildren<ParticleSystem>();
                 particle.Play();
-                DOTween.To(() => alpha, (x) => alpha = x, 0, 0.5f)
+                DOTween.To(() => alpha, (x) => alpha = x, 0, 1f)
                     .OnComplete(() =>
                     {
                         Destroy(hit.transform.gameObject);
