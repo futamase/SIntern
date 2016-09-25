@@ -27,6 +27,7 @@ public class PlayerBaseScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	public void Update () {
+		this.transform.position = new Vector3 (this.transform.position.x, this.transform.position.y, 0.1f);
 		Move ();
 		if (this.m_IsUsing && Input.GetButtonDown ("Action")) {
 			Action ();

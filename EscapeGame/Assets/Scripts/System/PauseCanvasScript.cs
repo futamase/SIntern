@@ -37,15 +37,15 @@ public class PauseCanvasScript : SingletonMonoBehaviour<PauseCanvasScript> {
 	
 	// Update is called once per frame
 	void Update () {
-		if (Input.GetKeyDown(KeyCode.Return))
+		if (Input.GetKeyDown(KeyCode.Return) )
         {
 			ResetPause ();
-			//Reset();
         }
 	}
 
 	void ResetPause(){
 		Time.timeScale = 0;
+		ResetUI.transform.FindChild ("ResetButton").GetComponent<Button> ().Select ();
 		ResetUI.SetActive (true);
 	}
 
@@ -56,7 +56,7 @@ public class PauseCanvasScript : SingletonMonoBehaviour<PauseCanvasScript> {
 
 	public void GameOver(){
 		Time.timeScale = 0;
-		Debug.Log (GameObject.Find ("GameOver"));
+		GameOverUI.transform.FindChild ("RetryButton").GetComponent<Button> ().Select ();
 		GameOverUI.SetActive (true);
 	}
 
