@@ -81,8 +81,10 @@
     <Compile Include="Assets\Demigiant\DOTween\Examples\Basics.cs" />
     <Compile Include="Assets\Demigiant\DOTween\Examples\Sequences.cs" />
     <Compile Include="Assets\Resources\Scripts\Common\FXController.cs" />
+    <Compile Include="Assets\Scenes\TitleScene\TitleManager.cs" />
     <Compile Include="Assets\Scripts\Manager\GameManager.cs" />
     <Compile Include="Assets\Scripts\Manager\GameManagerScript.cs" />
+    <Compile Include="Assets\Scripts\Manager\foeiajfoij.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerBaseScript.cs" />
     <Compile Include="Assets\Scripts\Player\PrincessScript.cs" />
     <Compile Include="Assets\Scripts\Player\RobotScript.cs" />
@@ -95,6 +97,7 @@
     <Compile Include="Assets\Scripts\StageObjects\SwitchScript.cs" />
     <Compile Include="Assets\Scripts\System\CSVReader.cs" />
     <Compile Include="Assets\Scripts\System\CommonDataSet.cs" />
+    <Compile Include="Assets\Scripts\System\FadeManager.cs" />
     <Compile Include="Assets\Scripts\System\Int2.cs" />
     <Compile Include="Assets\Scripts\System\MapCreator.cs" />
     <Compile Include="Assets\Scripts\System\PauseCanvasScript.cs" />

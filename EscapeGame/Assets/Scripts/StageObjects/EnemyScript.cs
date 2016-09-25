@@ -33,6 +33,9 @@ public class EnemyScript : MonoBehaviour {
 		case "FixedBlock":
 			ChangeDirection ();
 			break;
+		case "Wall":
+			ChangeDirection ();
+			break;
 		default:
 			break;
 		}

@@ -16,7 +16,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     private float m_OffsetX, m_OffsetY;
 
     // 今何ステージ目か
-    private int m_StageCount = 1;
+    private int m_StageCount = 4;
 
     // ステージ毎のコンボ数
     private int[] m_ComboList = new int[7];
@@ -99,21 +99,20 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
         //Celling
         for (int i = 0; i < m_Row + 2; i++)
         {
-            GenerateFloor(topLeft.x + i + 0.5f, topLeft.y - (-1 + 0.5f));
+            GenerateWall(topLeft.x + i + 0.5f, topLeft.y - (-1 + 0.5f));
         }
         //Wall
         for (int i = -1; i < m_Col + 2; i++)
         {
-            GenerateFloor(topLeft.x - 1 + 0.5f, topLeft.y - (i + 0.5f));
-            GenerateFloor(topLeft.x + m_Row + 2 + 0.5f, topLeft.y - (i + 0.5f));
+            GenerateWall(topLeft.x - 1 + 0.5f, topLeft.y - (i + 0.5f));
+            GenerateWall(topLeft.x + m_Row + 2 + 0.5f, topLeft.y - (i + 0.5f));
         }
 
     }
 
-    void GenerateFloor(float x, float y)
+    void GenerateWall(float x, float y)
     {
-        //FloorじゃないけどFloorで代用
-        GameObject _obj = Resources.Load("Prefabs/Floor") as GameObject;
+        GameObject _obj = Resources.Load("Prefabs/Wall") as GameObject;
         var _go = Instantiate(_obj,
             new Vector3(x, y),
             Quaternion.identity) as GameObject;

@@ -64,7 +64,7 @@ public class PrincessScript : PlayerBaseScript {
 	}
 
 	private bool IsTouch(Vector3 targetPos){
-		return Mathf.Abs (targetPos.y - transform.position.y) < 0.5 && Mathf.Abs (targetPos.x - transform.position.x) < 1.0;
+		return Mathf.Abs (targetPos.y - transform.position.y) < 0.5 && Mathf.Abs (targetPos.x - transform.position.x) < 0.5;
 //		if(Mathf.Abs(targetPos.y - transform.position.y) > 0.5){
 //			return false;
 //		}
