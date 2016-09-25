@@ -20,7 +20,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 4000011670271422}
   - 212: {fileID: 212000014165615510}
-  m_Layer: 8
+  m_Layer: 11
   m_Name: Capsule
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -39,7 +39,7 @@ GameObject:
   - 143: {fileID: 143000012828230384}
   - 212: {fileID: 212000011250860136}
   - 95: {fileID: 95000012036912946}
-  m_Layer: 8
+  m_Layer: 11
   m_Name: Princess
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -66,7 +66,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000012665974174}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -5.5, y: -2.5, z: 0}
+  m_LocalPosition: {x: -6.5, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:

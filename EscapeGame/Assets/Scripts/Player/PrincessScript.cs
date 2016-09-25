@@ -88,26 +88,26 @@ public class PrincessScript : PlayerBaseScript {
         //		GameManagerScript.I.Action(this.transform, true, spriteSize);
         GameManager.I.ActionHime(this.transform);
 	}
-
-	void OnCollisionEnter(Collision collision) {
-		base.OnCollisionEnter (collision);
-		switch (collision.transform.tag) {
-		case "Enemy":
-			Dead ();
-			break;
-		case "Lift":
-			Dead ();
-			break;
-		case "Door":
-			if (this.m_HasKey) {
-				collision.transform.gameObject.SendMessage ("Goal");
-			}
-			break;
-		default:
-			break;
-		}
-
-	}
+//
+//	void OnCollisionEnter(Collision collision) {
+//		base.OnCollisionEnter (collision);
+//		switch (collision.transform.tag) {
+//		case "Enemy":
+//			Dead ();
+//			break;
+//		case "Lift":
+//			Dead ();
+//			break;
+//		case "Door":
+//			if (this.m_HasKey) {
+//				collision.transform.gameObject.SendMessage ("Goal");
+//			}
+//			break;
+//		default:
+//			break;
+//		}
+//
+//	}
 
 	void OnTriggerEnter(Collider other){
 		base.OnTriggerEnter(other);
@@ -115,6 +115,18 @@ public class PrincessScript : PlayerBaseScript {
 			if (this.m_HasKey) {
 				other.transform.gameObject.SendMessage ("Goal");
 			}
+		}
+	}
+
+	void OnControllerColliderHit(ControllerColliderHit hit) {
+		base.OnControllerColliderHit (hit);
+		switch (hit.transform.tag) {
+		case "Enemy":
+			Dead ();
+			break;
+		case "Lift":
+			Dead ();
+			break;
 		}
 	}
 	new public void Reset(){

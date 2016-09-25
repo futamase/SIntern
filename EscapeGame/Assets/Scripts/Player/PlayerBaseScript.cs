@@ -66,6 +66,7 @@ public class PlayerBaseScript : MonoBehaviour {
 
 	public void Dead(){
 		Debug.Log ("Dead");
+		PauseCanvasScript.I.GameOver ();
 		this.m_IsAlive = false;
 		Destroy (this.transform.gameObject);
 	}
@@ -81,7 +82,7 @@ public class PlayerBaseScript : MonoBehaviour {
 
 	List<string> m_ClimbTags = new List<string>(){"Block","FixedBlock","Lift"};
 
-	void OnControllerColliderHit(ControllerColliderHit hit) {
+	public void OnControllerColliderHit(ControllerColliderHit hit) {
 		
 		string tag = hit.transform.tag;
 		float r = 0f;

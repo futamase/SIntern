@@ -125,7 +125,6 @@ GameObject:
   - 223: {fileID: 223000010135305480}
   - 114: {fileID: 114000014021000764}
   - 114: {fileID: 114000011285821188}
-  - 114: {fileID: 114000012007023198}
   m_Layer: 5
   m_Name: PauseCanvas
   m_TagString: Untagged
@@ -570,19 +569,6 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
---- !u!114 &114000012007023198
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000012482574388}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 107880b3d493a40e28343f541bc8f3e9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ResetUI: {fileID: 0}
-  GameOverUI: {fileID: 0}
 --- !u!114 &114000012410712646
 MonoBehaviour:
   m_ObjectHideFlags: 1
