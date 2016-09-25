@@ -4,9 +4,9 @@ using System.Collections;
 public class BlockScript : MonoBehaviour {
 
 	[SerializeField]
-	private bool m_Haskey = false;
+	private bool m_IsHidden = false;
 	[SerializeField]
-	private GameObject m_Key;
+	private GameObject m_Obj;
 	private bool m_IsQuitting = false;
 
 	private Vector3 m_FirstPosition;
@@ -32,9 +32,9 @@ public class BlockScript : MonoBehaviour {
 	}
 
 	void OnDestroy(){
-		if (m_Haskey && !m_IsQuitting) {
+		if (m_IsHidden && !m_IsQuitting) {
 			Vector3 pos = this.transform.position;
-			Instantiate(m_Key, new Vector3(pos.x, pos.y, 0), Quaternion.identity);
+			Instantiate(m_Obj, new Vector3(pos.x, pos.y, 0), Quaternion.identity);
 		}
 	}
 
