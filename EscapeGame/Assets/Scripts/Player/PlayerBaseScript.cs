@@ -14,12 +14,14 @@ public class PlayerBaseScript : MonoBehaviour {
 	private bool m_IsAlive = true;
 	private Vector3 m_firstPosition;
 
+	private GameObject[] Lifts;
 
 	// Use this for initialization
 	public void Start () {
 		m_Controller = GetComponent<CharacterController>();
 		m_GameManagerScript = GameObject.Find ("GameManager").GetComponent<GameManagerScript> ();
 		m_firstPosition = this.transform.position;
+		Lifts = GameObject.FindGameObjectsWithTag ("Lift");
 
 	}
 	
@@ -31,6 +33,13 @@ public class PlayerBaseScript : MonoBehaviour {
 		}
 		if (Input.GetButtonDown ("Change")) {
 			ChangeCharacter (!m_IsUsing);
+		}
+		if (Lifts.Length > 0) {
+			foreach (var o in Lifts) {
+				if (o.GetComponent<LiftScript> ().IsLiftDown ()) {
+					IsPressedCheck (o.transform);
+				}
+			}
 		}
 	}
 
@@ -61,11 +70,6 @@ public class PlayerBaseScript : MonoBehaviour {
 		;
 	}
 
-//	public void OnTriggerEnter(Collider other){
-//		if (other.transform.tag == "Lift") {
-//			this.Dead ();
-//		}
-//	}
 
 	public void Dead(){
 		Debug.Log ("Dead");
@@ -79,24 +83,12 @@ public class PlayerBaseScript : MonoBehaviour {
 		this.m_IsAlive = true;
 	}
 
-//	void OnTriggerEnter(Collider other){
-//		if (other.transform.tag == "Lift") {
-//			Dead ();
-//		}
-//	}
-
 
 	List<string> m_ClimbTags = new List<string>(){"Block","FixedBlock","Lift"};
 
 	public void OnControllerColliderHit(ControllerColliderHit hit) {
 
 		string tag = hit.transform.tag;
-		Debug.Log (tag);
-		//
-		if (tag == "Lift") {
-			Debug.Log (hit.transform.GetComponent<LiftScript> ().IsLiftDown ());
-			IsPressedCheck (hit.transform);
-		}
 
 		//
 		float r = 0f;
@@ -153,7 +145,14 @@ public class PlayerBaseScript : MonoBehaviour {
 	}
 
 	void IsPressedCheck(Transform tr){
-		Debug.Log (tr.position.x + tr.localScale.x / 2);
+		
+		if(Mathf.Abs(tr.position.x - this.transform.position.x) < tr.localScale.x / 2.0f
+			&& tr.position.y > this.transform.position.y){
+			float height = this.transform.gameObject.name == "Princess" ? 1.0f : 1.47f;
+			if (tr.position.y - this.transform.position.y < height) {
+				Dead ();
+			}
+		}
 	}
 		
 }
