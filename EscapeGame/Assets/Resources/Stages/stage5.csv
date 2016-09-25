@@ -7,10 +7,10 @@ FixedBlock,FixedBlock,FixedBlock,,,,,,,,,Block,,,
 ,,,,,,FixedBlock,,,,,Block,,,
 ,,,,,,,,,,,,,,
 ,,,,FixedBlock,,,,,,,,Block,,
-Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,,Floor
+FixedBlock,FixedBlock,FixedBlock,FixedBlock,FixedBlock,FixedBlock,FixedBlock,FixedBlock,FixedBlock,FixedBlock,FixedBlock,FixedBlock,FixedBlock,,FixedBlock
 ,,,,,,,,,,,,,,
 ,,,,,,,,,,,,,,
 ,,,,,,,,,,,,,,
 ,,,,,,,,,,,,,,
-,,,,FixedBlock,,,,,,,,,,
+,,,FixedBlock,,,,,,,,,,,
 
