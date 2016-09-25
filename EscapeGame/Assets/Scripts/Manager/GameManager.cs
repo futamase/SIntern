@@ -72,6 +72,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
 
         m_Row = (int)commonData.m_StageSize[m_StageCount - 1].y;
         m_Col = (int)commonData.m_StageSize[m_StageCount - 1].x;
+        Debug.Log(m_Row + " " + m_Col);
 
         m_StaticObjectsParent = m_StaticObjectsParent ?? new GameObject("StaticParent");
         m_DynamicObjectsParent = m_DynamicObjectsParent ?? new GameObject("DynamicParent");
@@ -97,15 +98,15 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     void GenerateWallAndCelling(Vector3 topLeft, int m_Row, int m_Col)
     {
         //Celling
-        for (int i = 0; i < m_Row + 2; i++)
+        for (int i = 0; i < m_Col; i++)
         {
             GenerateWall(topLeft.x + i + 0.5f, topLeft.y - (-1 + 0.5f));
         }
         //Wall
-        for (int i = -1; i < m_Col + 2; i++)
+        for (int i = -1; i < m_Row + 1; i++)
         {
             GenerateWall(topLeft.x - 1 + 0.5f, topLeft.y - (i + 0.5f));
-            GenerateWall(topLeft.x + m_Row + 2 + 0.5f, topLeft.y - (i + 0.5f));
+            GenerateWall(topLeft.x + m_Col + 0.5f, topLeft.y - (i + 0.5f));
         }
 
     }
