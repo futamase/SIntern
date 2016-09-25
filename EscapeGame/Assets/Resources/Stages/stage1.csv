@@ -3,9 +3,9 @@
 ,,,,,,Block,,,
 ,,,,,,Block,,,
 ,,,,,,Block,,,
-,,,,,,Block,,,
-,,,,,,Block,,,Block
-,,,,,,,,,Block
+,,,,,,Block,,,FixedBlock
+,,,,,,KeyBlock,,,FixedBlock
 Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor
+,,,,,,,,,
 ,,,,,,,,,
 
