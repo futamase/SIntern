@@ -20,8 +20,8 @@ public class MainCanvasScript : SingletonMonoBehaviour<MainCanvasScript> {
 	void Update () {
 		if (Input.GetKeyDown(KeyCode.Return))
         {
-			ResetPause ();
-
+			//ResetPause ();
+			Reset();
         }
 	}
 
