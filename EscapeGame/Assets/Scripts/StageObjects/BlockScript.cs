@@ -10,11 +10,19 @@ public class BlockScript : MonoBehaviour {
 	private bool m_IsQuitting = false;
 
 	private Vector3 m_FirstPosition;
-
+    private GameObject m_Instance;
 
 	// Use this for initialization
 	void Start () {
 		m_FirstPosition = this.transform.position;
+
+		if (m_IsHidden && !m_IsQuitting) {
+			Vector3 pos = this.transform.position;
+			m_Instance = Instantiate(m_Obj, new Vector3(pos.x, pos.y, 0), Quaternion.identity) as GameObject;
+
+            m_Instance.SetActive(false);
+            GameManager.I.AddGameObject(m_Instance, GameManager.Type.Static);
+		}
 	}
 	
 	// Update is called once per frame
@@ -33,10 +41,7 @@ public class BlockScript : MonoBehaviour {
 
 	void OnDestroy(){
 		if (m_IsHidden && !m_IsQuitting) {
-			Vector3 pos = this.transform.position;
-			var go = Instantiate(m_Obj, new Vector3(pos.x, pos.y, 0), Quaternion.identity) as GameObject;
-
-            GameManager.I.AddGameObject(go, GameManager.Type.Static);
+            m_Instance.SetActive(true);
 		}
 	}
 

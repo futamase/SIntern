@@ -69,62 +69,76 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
 
         m_GeneratePoint = commonData.m_GeneratePoints[m_StageCount - 1];//m_GeneratePoint;//this.getScreenTopLeft();
         var topLeft = m_GeneratePoint;
-        
-        m_Row = (int)commonData.m_StageSize[m_StageCount-1].y;
-        m_Col = (int)commonData.m_StageSize[m_StageCount-1].x;
+
+        m_Row = (int)commonData.m_StageSize[m_StageCount - 1].y;
+        m_Col = (int)commonData.m_StageSize[m_StageCount - 1].x;
 
         m_StaticObjectsParent = m_StaticObjectsParent ?? new GameObject("StaticParent");
         m_DynamicObjectsParent = m_DynamicObjectsParent ?? new GameObject("DynamicParent");
 
-		for (int i = 0; i < m_Row; i++)
+        for (int i = 0; i < m_Row; i++)
         {
             for (int j = 0; j < m_Col; j++)
             {
                 if (data[i][j] != "")
                 {
                     GameObject obj = Resources.Load("Prefabs/" + data[i][j]) as GameObject;
-                    var go = Instantiate(obj, 
-                         new Vector3(topLeft.x + j + 0.5f, topLeft.y - (i + 0.5f)), 
+                    var go = Instantiate(obj,
+                         new Vector3(topLeft.x + j + 0.5f, topLeft.y - (i + 0.5f)),
                          Quaternion.identity) as GameObject;
                     this.AddGameObject(go, Type.Static);
                 }
             }
         }
-		GenerateWallAndCelling (topLeft, m_Row, m_Col);
+        GenerateWallAndCelling(topLeft, m_Row, m_Col);
 
     }
 
-	void GenerateWallAndCelling(Vector3 topLeft, int m_Row, int m_Col){
-		//Celling
-		for (int i = 0; i < m_Row + 2; i++) {
-			GenerateFloor (topLeft.x + i + 0.5f, topLeft.y - (-1 + 0.5f));
-		}
-		//Wall
-		for (int i = -1; i < m_Col + 2; i++) {
-			GenerateFloor (topLeft.x -1 + 0.5f, topLeft.y - (i + 0.5f));
-			GenerateFloor (topLeft.x + m_Row + 2 + 0.5f, topLeft.y - (i + 0.5f));
-		}
+    void GenerateWallAndCelling(Vector3 topLeft, int m_Row, int m_Col)
+    {
+        //Celling
+        for (int i = 0; i < m_Row + 2; i++)
+        {
+            GenerateFloor(topLeft.x + i + 0.5f, topLeft.y - (-1 + 0.5f));
+        }
+        //Wall
+        for (int i = -1; i < m_Col + 2; i++)
+        {
+            GenerateFloor(topLeft.x - 1 + 0.5f, topLeft.y - (i + 0.5f));
+            GenerateFloor(topLeft.x + m_Row + 2 + 0.5f, topLeft.y - (i + 0.5f));
+        }
 
-	}
+    }
 
-	void GenerateFloor(float x, float y){
-		//FloorじゃないけどFloorで代用
-		GameObject _obj = Resources.Load("Prefabs/Floor") as GameObject;
-		var _go = Instantiate(_obj, 
-			new Vector3(x, y), 
-			Quaternion.identity) as GameObject;
-		this.AddGameObject(_go, Type.Static);
+    void GenerateFloor(float x, float y)
+    {
+        //FloorじゃないけどFloorで代用
+        GameObject _obj = Resources.Load("Prefabs/Floor") as GameObject;
+        var _go = Instantiate(_obj,
+            new Vector3(x, y),
+            Quaternion.identity) as GameObject;
+        this.AddGameObject(_go, Type.Static);
 
-	}
+    }
 
     private void UpdateUI()
     {
 
     }
 
-	public void CallReset(){
-		StartCoroutine(ResetStage());
-	}
+    public void CallReset()
+    {
+//        StartCoroutine(ResetStage());
+        
+        m_ComboList[m_StageCount - 1] = 0; // コンボ数をリセット
+        m_StaticObjectsParent = null;
+        m_DynamicObjectsParent = null;
+
+        FadeManager.I.Fade(0.5f, () =>
+         {
+             SceneManager.LoadScene("Scene" + m_StageCount.ToString());
+         });
+    }
 
     // ステージをリセットする
     System.Collections.IEnumerator ResetStage()
@@ -152,7 +166,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     {
         // FadeManagerの設計ミスによるダメな実装
         FadeManager.I.Reset();
-		this.SetBlock ();
+        this.SetBlock();
 
         SceneManager.sceneLoaded += this.CreateStage;
 
@@ -170,7 +184,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
         GameObject.Find("Canvas").transform.FindChild("Floor").GetComponent<Text>().text = "Floor " + (8 - m_StageCount).ToString();
         float dummy = 0;
         DOTween.To(() => dummy, (x) => dummy = x, 1, 3f)
-            .OnComplete(()=> 
+            .OnComplete(() =>
             {
                 FadeManager.I.Fade(1f, this.GotoNextStage);
             });
@@ -210,40 +224,40 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
         }*/
 
         #region ステージショートカット
-        if(Input.GetKeyDown(KeyCode.Q))
+        if (Input.GetKeyDown(KeyCode.Q))
         {
             m_StageCount = 1;
             SceneManager.LoadScene("LoadScene");
         }
-        else if(Input.GetKeyDown(KeyCode.W))
+        else if (Input.GetKeyDown(KeyCode.W))
         {
             m_StageCount = 2;
             SceneManager.LoadScene("LoadScene");
         }
-        else if(Input.GetKeyDown(KeyCode.E))
+        else if (Input.GetKeyDown(KeyCode.E))
         {
             m_StageCount = 3;
             SceneManager.LoadScene("LoadScene");
         }
-        else if(Input.GetKeyDown(KeyCode.R))
+        else if (Input.GetKeyDown(KeyCode.R))
         {
             m_StageCount = 4;
             SceneManager.LoadScene("LoadScene");
         }
-        else if(Input.GetKeyDown(KeyCode.T))
+        else if (Input.GetKeyDown(KeyCode.T))
         {
             m_StageCount = 5;
             SceneManager.LoadScene("LoadScene");
         }
-        else if(Input.GetKeyDown(KeyCode.Y))
+        else if (Input.GetKeyDown(KeyCode.Y))
         {
             m_StageCount = 6;
             SceneManager.LoadScene("LoadScene");
         }
         #endregion
 
-        if (m_ComboText != null) 
-        m_ComboText.text = "Act " + m_ComboList[m_StageCount - 1].ToString();
+        if (m_ComboText != null)
+            m_ComboText.text = "Act " + m_ComboList[m_StageCount - 1].ToString();
     }
 
     // ブロックの中から鍵とかブロックの中からスイッチとかした時にこれで登録したい
@@ -261,7 +275,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
         if (m_DynamicObjectsParent == null)
             return;
 
-        if(type == Type.Dynamic)
+        if (type == Type.Dynamic)
         {
             go.transform.parent = m_DynamicObjectsParent.transform;
         }
@@ -303,21 +317,24 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
         return new Int2(-1, -1);
     }
 
-	// for put key by Princess
-	public Vector3 GetGeneratePos(Vector3 pos){
-		Int2 p = GetPlayerPos (pos);
-		return new Vector3(m_GeneratePoint.x + p.x + 0.5f, m_GeneratePoint.y - p.y - 0.5f);
+    // for put key by Princess
+    public Vector3 GetGeneratePos(Vector3 pos)
+    {
+        Int2 p = GetPlayerPos(pos);
+        return new Vector3(m_GeneratePoint.x + p.x + 0.5f, m_GeneratePoint.y - p.y - 0.5f);
 
-	}
+    }
 
     // 姫さまアクション
-	public void ActionHime(Transform tr)
+    public void ActionHime(Transform tr)
     {
+
         RaycastHit hit;
-        bool isHit = Physics.Raycast(tr.position, Vector3.right * (int)tr.localScale.x, out hit, 1);
-        Debug.DrawRay(tr.position, Vector3.right * (int)tr.localScale.x, Color.blue, 1f);
+        bool isHit = Physics.Raycast(tr.position, Vector3.right * (int)tr.localScale.x, out hit, 0.7f);
+        Debug.DrawRay(tr.position, Vector3.right * (int)tr.localScale.x, Color.blue, 0.7f);
 		if (isHit)
             return;
+
 
         var p = this.GetPlayerPos(tr.position);
         // 範囲外チェック
@@ -331,7 +348,10 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
         if (x == -1 || x == m_Col)
             return;
 
-        Vector3 wannaBePos = new Vector3(m_GeneratePoint.x + p.x + 0.5f, m_GeneratePoint.y - p.y - 0.5f);
+        Vector3 wannaBePos = new Vector3(
+            m_GeneratePoint.x + p.x + 0.5f,
+            tr.position.y);
+           // m_GeneratePoint.y - p.y - 0.5f);
 
         tr.DOLocalMove(wannaBePos, 0.5f)
             .OnComplete(() =>
@@ -340,7 +360,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
                 GameObject obj = Resources.Load("Prefabs/Block") as GameObject;
                 var instance = Instantiate(obj, genePos, Quaternion.identity) as GameObject;
                 this.AddGameObject(instance, Type.Dynamic);
-					SoundManager.I.PlaySE ("creating_block");
+                SoundManager.I.PlaySE("creating_block");
             });
 
         m_ComboList[m_StageCount - 1]++;
@@ -357,10 +377,10 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
             isPressedShift ? tr.position + new Vector3(0, 0.5f) : tr.position - new Vector3(0, 0.5f), // Shift押してたら上、else 下 
             Vector3.right * (int)tr.localScale.x,
             out hit,
-            1f);
+            0.7f);
         Debug.DrawRay(
             isPressedShift ? tr.position + new Vector3(0, 0.5f) : tr.position - new Vector3(0, 0.5f), // Shift押してたら上、else 下 
-            Vector3.right * (int)tr.localScale.x, Color.blue, 1f);
+            Vector3.right * (int)tr.localScale.x, Color.blue, 0.7f);
 
         if (isHit)
         {
@@ -372,8 +392,8 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
                 hit.transform.GetComponent<SpriteRenderer>().enabled = false;
                 hit.transform.GetComponent<BoxCollider>().enabled = false;
                 var particle = hit.transform.GetComponentInChildren<ParticleSystem>();
-				SoundManager.I.PlaySE ("brick_crash");
-				particle.Play();
+                SoundManager.I.PlaySE("brick_crash");
+                particle.Play();
                 DOTween.To(() => alpha, (x) => alpha = x, 0, 1f)
                     .OnComplete(() =>
                     {

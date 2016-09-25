@@ -9,7 +9,7 @@ public class PlayerBaseScript : MonoBehaviour {
 	public GameManagerScript m_GameManagerScript;
 	private Vector3	m_Move = Vector3.zero;
 	private float m_Speed = 2.5f;
-	private const float	GRAVITY = 1f;			// 重力
+	private const float	GRAVITY = 19.8f;			// 重力
 	private bool m_IsUsing = true;
 	private bool m_IsAlive = true;
 	private Vector3 m_firstPosition;
@@ -48,6 +48,9 @@ public class PlayerBaseScript : MonoBehaviour {
 		m_Move = new Vector3(x, m_Move.y , 0.0f);		// 左右上下のキー入力を取得し、移動量に代入.
 		m_Move.y -=  GRAVITY * Time.deltaTime;	// 重力を代入.
 		m_Controller.Move(m_Move * Time.deltaTime);	// キャラ移動.
+
+        if (m_Controller.isGrounded)
+            m_Move.y = 0f;
 	}
 
 	public void ChangeCharacter(bool IsUsing){

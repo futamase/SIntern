@@ -13,7 +13,7 @@ public class PauseCanvasScript : SingletonMonoBehaviour<PauseCanvasScript> {
 	{
 		if (this != I)
 		{
-			Destroy(this);
+			Destroy(this.gameObject);
 			return;
 		}
 		DontDestroyOnLoad(this.gameObject);
