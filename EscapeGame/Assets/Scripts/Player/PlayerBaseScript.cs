@@ -85,13 +85,21 @@ public class PlayerBaseScript : MonoBehaviour {
 		
 		string tag = hit.transform.tag;
 		float r = 0f;
-		float offsetY = 0;
+		float maxY = 0;
+		float minY = 0;
 		if (this.transform.gameObject.name == "Princess") {
 			r = 0.75f;
-			offsetY = 0.3f;
+			//offsetY = 0.3f;
+			//1.05 ~ 0.94 NG:1.17
+			minY = 0.9f;
+			maxY = 1.1f;
 		}else if(this.transform.gameObject.name == "Robot"){
-			r = 2.1f;
-			offsetY = 1.5f;
+			r = 1.5f;
+			//offsetY = 1.4f;
+			//offsetY = 1.82f;
+			//1.47 - 1.77 NG:1.77
+			maxY = 1.50f;
+			minY = 1.45f;
 		}
 			
 		if (tag == "Block" || tag == "FixedBlock") {
@@ -100,9 +108,12 @@ public class PlayerBaseScript : MonoBehaviour {
 			foreach (Collider col in colliders) {
 				if (m_ClimbTags.Contains (col.transform.tag)) {
 					Vector3 pos = transform.position;
-					if (pos.y + offsetY < col.transform.position.y) {
+					float diff = col.transform.position.y - pos.y;
+					if (minY < diff && diff < maxY && 
+						Mathf.Abs(col.transform.position.x - pos.x) < 1.3f) {
 						if (0 < transform.localScale.x && pos.x < col.transform.position.x ||
 						   0 > transform.localScale.x && pos.x > col.transform.position.x) {
+							Debug.Log (col.transform.position.y - pos.y);
 							isDownThrough = true;
 						}
 					}
