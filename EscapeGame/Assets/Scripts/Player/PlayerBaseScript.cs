@@ -38,10 +38,11 @@ public class PlayerBaseScript : MonoBehaviour {
 		if (this.m_IsUsing) {
 			x = Input.GetAxis ("Horizontal") * m_Speed;
 		}
+		Vector3 scale = this.transform.localScale;
 		if (x < 0) {
-			this.transform.localScale = new Vector3(-1, 1, 1); //左向く
+			this.transform.localScale = new Vector3(-1*Mathf.Abs(scale.x), scale.y, 1); //左向く
 		} else if(x > 0) {
-			this.transform.localScale = new Vector3(1, 1, 1); //右向く
+			this.transform.localScale = new Vector3(1*Mathf.Abs(scale.x), scale.y, 1); //右向く
 		}
 		m_Move = new Vector3(x, m_Move.y , 0.0f);		// 左右上下のキー入力を取得し、移動量に代入.
 		m_Move.y -=  GRAVITY * Time.deltaTime;	// 重力を代入.
@@ -75,7 +76,6 @@ public class PlayerBaseScript : MonoBehaviour {
 
 	void OnControllerColliderHit(ControllerColliderHit hit) {
 		string tag = hit.transform.tag;
-
 		if (tag == "Block" || tag == "FixedBlock") {
 			if (this.transform.position.y+0.3f > hit.transform.position.y) {
 				if (m_Controller.stepOffset == 0) {
