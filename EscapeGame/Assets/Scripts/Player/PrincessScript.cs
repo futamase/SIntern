@@ -77,7 +77,8 @@ public class PrincessScript : PlayerBaseScript {
 
 	private void PutKey(){
 		Vector3 pos = this.transform.position;
-		Instantiate(m_Key, new Vector3(pos.x+ 1, pos.y, 0), Quaternion.identity);
+		var go = Instantiate(m_Key, new Vector3(pos.x+ 1, pos.y, 0), Quaternion.identity) as GameObject;
+        GameManager.I.AddGameObject(go, GameManager.Type.Dynamic);
 		m_HasKey = false;
 	}
 

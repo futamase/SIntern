@@ -15,7 +15,6 @@ public class DoorScript : MonoBehaviour {
 	
 	}	
 		
-
 	void Goal(){
 		this.m_IsOpen = true;
 		Debug.Log ("GOOOOOOOOOOOOOOOOOOAL");

@@ -90,9 +90,9 @@ public class PlayerBaseScript : MonoBehaviour {
 			Collider[] colliders = Physics.OverlapSphere (this.transform.position, 2.5f);
 			foreach (Collider col in colliders) {
 				Debug.Log ("--------");
-				Debug.Log (col.transform.tag);
+				Debug.Log (col.transform.parent.tag);
 				Debug.Log (col.transform.position);
-				Debug.Log (col.transform.gameObject.name);
+				Debug.Log (col.transform.parent.gameObject.name);
 			}
 			Debug.Log ("=============");
 /*			if (hit.transform.position.y < this.transform.position.y) {
