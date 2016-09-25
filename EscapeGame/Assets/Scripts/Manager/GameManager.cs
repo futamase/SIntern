@@ -16,7 +16,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     private float m_OffsetX, m_OffsetY;
 
     // 今何ステージ目か
-    private int m_StageCount = 1;
+    private int m_StageCount = 3;
 
     // ステージ毎のコンボ数
     private int[] m_ComboList = new int[7];

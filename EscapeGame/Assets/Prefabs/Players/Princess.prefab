@@ -120,7 +120,7 @@ CharacterController:
   m_StepOffset: 0.8
   m_SkinWidth: 0.04
   m_MinMoveDistance: 0
-  m_Center: {x: 0, y: -0.06, z: 0}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!212 &212000011250860136
 SpriteRenderer:
   m_ObjectHideFlags: 1

@@ -1,12 +1,13 @@
-quad2,quad2,quad2,quad2,quad2,quad2,quad2,quad2,quad2,quad2,quad2
-quad2,,,,,,,,,,
-quad2,,,,,,,,,,
-quad2,,,,,,,,,,
-quad2,,,,,,,,,,
-quad2,,,,,,,,,,
-quad2,,,,,,,,,,
-quad2,,,,,,,,,,
-quad2,,,,,,,,,,
-quad2,,,,,,,,,,
-quad2,,,,,,,,,,
+,,,,,,,,,,,
+,,,,,,,,,,,
+,,KeyBlock,Block,,,,,,,,
+,,Block,Block,,,,,,,,
+,,,Block,,,,,,Block,Block,
+,,,,,,,,,Block,Block,Block
+,,,,,,,,,Block,,
+,,,,,,,,,,,
+Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor
+,,,,,,,,,,,
+,,,,,,,,,,,
+,,,,,,,,,,,
 
