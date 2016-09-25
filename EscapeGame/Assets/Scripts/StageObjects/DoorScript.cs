@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class DoorScript : MonoBehaviour {
 
@@ -17,8 +18,8 @@ public class DoorScript : MonoBehaviour {
 		
 	void Goal(){
 		SoundManager.I.PlaySE("door_squeak");
-		//this.m_IsOpen = true;
-		GameManager.I.GotoNextStage();
+        //this.m_IsOpen = true;
+        SceneManager.LoadScene("LoadScene");
 	}
 
 	public void Reset(){

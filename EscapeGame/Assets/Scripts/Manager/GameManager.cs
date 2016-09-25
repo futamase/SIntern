@@ -150,7 +150,10 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     // Use this for initialization
     void Start()
     {
+        // FadeManagerの設計ミスによるダメな実装
+        FadeManager.I.Reset();
 		this.SetBlock ();
+
         SceneManager.sceneLoaded += this.CreateStage;
 
         var prefab = Resources.Load("Prefabs/StageInfoCanvas") as GameObject;
@@ -161,10 +164,31 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
         m_FloorCountText.text = "Floor " + m_StageCount.ToString();
     }
 
+    // ロードシーンのフロア名を管理しつつ、アニメーションが終わり次第次のステージへ
+    void SetLoadScene()
+    {
+        GameObject.Find("Canvas").transform.FindChild("Floor").GetComponent<Text>().text = "Floor " + (8 - m_StageCount).ToString();
+        float dummy = 0;
+        DOTween.To(() => dummy, (x) => dummy = x, 1, 3f)
+            .OnComplete(()=> 
+            {
+                FadeManager.I.Fade(1f, this.GotoNextStage);
+            });
+    }
+
     // ステージシーンでステージを生成する(ステージ間移動シーン等はこれを呼んではいけない)
     void CreateStage(Scene scene, LoadSceneMode mode)
     {
+        // FadeManagerの設計ミスによるダメな実装
+        FadeManager.I.Reset();
+
         // TODO : シーンによってはこれを呼んではいけないので条件分岐する
+        if (scene.name == "LoadScene")
+        {
+            this.SetLoadScene();
+            return;
+        }
+
         this.SetBlock();
 
         var prefab = Resources.Load("Prefabs/StageInfoCanvas") as GameObject;
@@ -185,6 +209,40 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
             StartCoroutine(this.ResetStage());
         }*/
 
+        #region ステージショートカット
+        if(Input.GetKeyDown(KeyCode.Q))
+        {
+            m_StageCount = 1;
+            SceneManager.LoadScene("LoadScene");
+        }
+        else if(Input.GetKeyDown(KeyCode.W))
+        {
+            m_StageCount = 2;
+            SceneManager.LoadScene("LoadScene");
+        }
+        else if(Input.GetKeyDown(KeyCode.E))
+        {
+            m_StageCount = 3;
+            SceneManager.LoadScene("LoadScene");
+        }
+        else if(Input.GetKeyDown(KeyCode.R))
+        {
+            m_StageCount = 4;
+            SceneManager.LoadScene("LoadScene");
+        }
+        else if(Input.GetKeyDown(KeyCode.T))
+        {
+            m_StageCount = 5;
+            SceneManager.LoadScene("LoadScene");
+        }
+        else if(Input.GetKeyDown(KeyCode.Y))
+        {
+            m_StageCount = 6;
+            SceneManager.LoadScene("LoadScene");
+        }
+        #endregion
+
+        if (m_ComboText != null) 
         m_ComboText.text = "Act " + m_ComboList[m_StageCount - 1].ToString();
     }
 
@@ -210,11 +268,13 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     }
 
     // 次のステージへ
-    public void GotoNextStage()
+    private void GotoNextStage()
     {
         m_StageCount++;
         m_StaticObjectsParent = null;
         m_DynamicObjectsParent = null;
+        m_ComboText = null;
+        m_FloorCountText = null;
         SceneManager.LoadScene("Scene" + m_StageCount.ToString());
     }
 

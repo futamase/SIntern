@@ -37,18 +37,23 @@ public class FadeManager : SingletonMonoBehaviour<FadeManager>
         GUI.DrawTexture(new Rect( 0, 0, Screen.width, Screen.height ), m_texture );
     }
 
+    public void Reset()
+    {
+        m_isEnable = false;
+        m_alpha = 0f;
+    }
+
     public void Fade(float duration, Action callback)
     {
         if (m_isEnable)
             return;
 
         m_isEnable = true;
+        m_alpha = 0;
 
         DOTween.To(() => m_alpha, (x) => m_alpha = x, 1f, duration)
             .OnComplete(()=> 
             {
-                m_alpha = 0f;
-                m_isEnable = false;
                 if (callback != null)
                     callback();
             });
