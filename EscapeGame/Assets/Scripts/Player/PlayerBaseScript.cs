@@ -79,7 +79,7 @@ public class PlayerBaseScript : MonoBehaviour {
 		;
 	}
 
-	List<string> m_NGTags = new List<string>(){"Block","FixedBlock"};
+	List<string> m_ClimbTags = new List<string>(){"Block","FixedBlock","Lift"};
 
 	void OnControllerColliderHit(ControllerColliderHit hit) {
 		string tag = hit.transform.tag;
@@ -87,14 +87,30 @@ public class PlayerBaseScript : MonoBehaviour {
 			return;
 		}
 		if (tag == "Block" || tag == "FixedBlock") {
-			Collider[] colliders = Physics.OverlapSphere (this.transform.position, 2.5f);
-			foreach (Collider col in colliders) {
-				Debug.Log ("--------");
-				Debug.Log (col.transform.parent.tag);
-				Debug.Log (col.transform.position);
-				Debug.Log (col.transform.parent.gameObject.name);
+			Collider[] colliders = Physics.OverlapSphere (this.transform.position, 1.0f);
+			//List<Vector3> aroundBlocksPos;
+			bool isDownThrough = false;
+			Vector3 pos = this.transform.position;
+			foreach (Collider col in colliders) {				
+				if (m_ClimbTags.Contains (col.transform.tag)) {
+					if (pos.y+0.3f < col.transform.position.y) {
+						if(pos.x < col.transform.position.x && this.transform.localScale.x > 0
+							|| pos.x > col.transform.position.x && this.transform.localScale.x < 0){
+							isDownThrough = true; 
+						}
+					}
+				}
 			}
-			Debug.Log ("=============");
+			if (!isDownThrough) {
+				if (m_Controller.stepOffset == 0) {
+					this.m_Controller.stepOffset = 0.8f;
+					this.m_Controller.slopeLimit = 90f;
+				}
+			} else {
+				this.m_Controller.stepOffset = 0.0f;
+				this.m_Controller.slopeLimit = 0;
+			}
+
 /*			if (hit.transform.position.y < this.transform.position.y) {
 				return;
 			}
