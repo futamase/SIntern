@@ -10,9 +10,12 @@ public class SwitchScript : MonoBehaviour {
 
 	private bool m_isPushed = false;
 
+	private Animator animator;
+
 	// Use this for initialization
 	void Start () {
-	
+		animator = this.GetComponent<Animator> ();
+
 	}
 	
 	// Update is called once per frame
@@ -25,6 +28,8 @@ public class SwitchScript : MonoBehaviour {
 	public void Push(){
 		m_isPushed = !m_isPushed;
 		m_TargetLift.GetComponent<LiftScript> ().Move (m_isPushed, m_MoveDistance);
+		//animator.SetFloat ("Speed", -1.0f);
+		animator.SetBool ("IsPush", m_isPushed);
 	}
 
 	public void Reset(){

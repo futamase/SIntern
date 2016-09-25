@@ -6,6 +6,7 @@ public class LiftScript : MonoBehaviour {
 	private Vector3 m_firstPosition;
 
 	private bool m_IsCollision;
+	private bool m_IsMoving;
 
 	// Use this for initialization
 	void Start () {
@@ -20,14 +21,17 @@ public class LiftScript : MonoBehaviour {
 
 	public void Move(bool isDown, int distance){
 		m_IsCollision = false;
+		if (this.m_IsMoving) {
+			return;
+		}
 		StartCoroutine (MoveCoroutine (distance, isDown));
 	}
 
 	// コルーチン  
 	private IEnumerator MoveCoroutine(float distance, bool isDown) {
+		m_IsMoving = true;
 		float limit = isDown ? m_firstPosition.y - distance : m_firstPosition.y;
 		float diff = isDown ? -0.1f : 0.1f;
-
 		for (int i = 0; i < distance*10; i++) {
 			if (m_IsCollision) {
 				break;
@@ -40,6 +44,7 @@ public class LiftScript : MonoBehaviour {
 				break;
 			}
 		}
+		m_IsMoving = false;
 		yield return null;
 	} 
 
