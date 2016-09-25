@@ -76,9 +76,12 @@ public class PlayerBaseScript : MonoBehaviour {
 		this.m_IsAlive = true;
 	}
 
-	public void OnCollisionEnter(Collision collision){
-		;
-	}
+//	void OnTriggerEnter(Collider other){
+//		if (other.transform.tag == "Lift") {
+//			Dead ();
+//		}
+//	}
+
 
 	List<string> m_ClimbTags = new List<string>(){"Block","FixedBlock","Lift"};
 
@@ -116,7 +119,6 @@ public class PlayerBaseScript : MonoBehaviour {
 					float diff = col.transform.position.y - pos.y;
 					if (minY < diff && diff < maxY && 
 						Mathf.Abs(col.transform.position.x - pos.x) < xLimit) {
-						Debug.Log ("OK");
 						if (0 < transform.localScale.x && pos.x < col.transform.position.x ||
 						   0 > transform.localScale.x && pos.x > col.transform.position.x) {
 							isDownThrough = true;

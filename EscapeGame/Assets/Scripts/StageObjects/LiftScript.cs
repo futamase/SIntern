@@ -52,6 +52,11 @@ public class LiftScript : MonoBehaviour {
 	void OnTriggerEnter(Collider other){
 		m_IsCollision = true;
 	}
+//
+//	void OnCollisionEnter(Collision collision){
+//		m_IsCollision = true;
+//		Debug.Log (collision.transform.tag);
+//	}
 
 	public void Reset(){
 		this.transform.position = this.m_firstPosition;

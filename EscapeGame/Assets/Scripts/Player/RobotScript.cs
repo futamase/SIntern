@@ -24,18 +24,19 @@ public class RobotScript : PlayerBaseScript {
         GameManager.I.ActionRobo(transform, Input.GetKey(KeyCode.LeftShift));
 	}
 
-	void OnCollisionEnter(Collision collision) {
-		base.OnCollisionEnter (collision);
-		Debug.Log (collision);
-		switch (collision.transform.tag) {
-		case "Lift":
-			Dead ();
-			break;
-		default:
-			break;
-		}
+//	void OnCollisionEnter(Collision collision) {
+//		base.OnCollisionEnter (collision);
+//		Debug.Log (collision);
+//		switch (collision.transform.tag) {
+//		case "Lift":
+//			Dead ();
+//			break;
+//		default:
+//			break;
+//		}
+//
+//	}
 
-	}
 
 
 	new public void Reset(){

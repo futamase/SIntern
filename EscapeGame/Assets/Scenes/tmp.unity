@@ -317,6 +317,48 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6ff4b9dccc75f4d1c9ffb9c921162f44, type: 2}
   m_IsPrefabParent: 0
+--- !u!1001 &614954462
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4000012941519836, guid: b583d4514eaa3450e8a03744b0aa96a7, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000012941519836, guid: b583d4514eaa3450e8a03744b0aa96a7, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000012941519836, guid: b583d4514eaa3450e8a03744b0aa96a7, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000012941519836, guid: b583d4514eaa3450e8a03744b0aa96a7, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000012941519836, guid: b583d4514eaa3450e8a03744b0aa96a7, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000012941519836, guid: b583d4514eaa3450e8a03744b0aa96a7, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000012941519836, guid: b583d4514eaa3450e8a03744b0aa96a7, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000012941519836, guid: b583d4514eaa3450e8a03744b0aa96a7, type: 2}
+      propertyPath: m_RootOrder
+      value: 15
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: b583d4514eaa3450e8a03744b0aa96a7, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1 &818720580 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1000010724482754, guid: 7cf1575670fa4400e81c081da626f288,

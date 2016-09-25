@@ -243,8 +243,15 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
         return new Int2(-1, -1);
     }
 
+	// for put key by Princess
+	public Vector3 GetGeneratePos(Vector3 pos){
+		Int2 p = GetPlayerPos (pos);
+		return new Vector3(m_GeneratePoint.x + p.x + 0.5f, m_GeneratePoint.y - p.y - 0.5f);
+
+	}
+
     // 姫さまアクション
-    public void ActionHime(Transform tr)
+	public void ActionHime(Transform tr)
     {
         RaycastHit hit;
         bool isHit = Physics.Raycast(tr.position, Vector3.right * (int)tr.localScale.x, out hit, 1);
