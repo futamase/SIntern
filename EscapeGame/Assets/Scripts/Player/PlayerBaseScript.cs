@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class PlayerBaseScript : MonoBehaviour {
 
@@ -74,18 +75,61 @@ public class PlayerBaseScript : MonoBehaviour {
 		this.m_IsAlive = true;
 	}
 
+	public void OnCollisionEnter(Collision collision){
+		;
+	}
+
+	List<string> m_NGTags = new List<string>(){"Block","FixedBlock"};
+
 	void OnControllerColliderHit(ControllerColliderHit hit) {
 		string tag = hit.transform.tag;
+		if (this.transform.gameObject.name != "Princess") {
+			return;
+		}
 		if (tag == "Block" || tag == "FixedBlock") {
-			if (this.transform.position.y+0.3f > hit.transform.position.y) {
-				if (m_Controller.stepOffset == 0) {
-					this.m_Controller.stepOffset = 0.7f;
-					this.m_Controller.slopeLimit = 90f;
-				}
-			} else {
-				this.m_Controller.stepOffset = 0.0f;
-				this.m_Controller.slopeLimit = 0;
+			Collider[] colliders = Physics.OverlapSphere (this.transform.position, 2.5f);
+			foreach (Collider col in colliders) {
+				Debug.Log ("--------");
+				Debug.Log (col.transform.parent.tag);
+				Debug.Log (col.transform.position);
+				Debug.Log (col.transform.parent.gameObject.name);
 			}
+			Debug.Log ("=============");
+/*			if (hit.transform.position.y < this.transform.position.y) {
+				return;
+			}
+			bool canThrough = false;
+			Vector3 pos = transform.position;
+			if (this.transform.gameObject.name == "Princess") {
+				RaycastHit rHit;
+				bool isHit = Physics.Raycast (pos, Vector3.right * (int)transform.localScale.x, out rHit, 1);
+				canThrough = (!isHit || !m_NGTags.Contains (rHit.transform.tag));
+			} else if (this.transform.gameObject.name == "Robot") {
+				RaycastHit rHit;
+				RaycastHit rHit2;
+				bool isHit = Physics.Raycast (pos, Vector3.right * (int)transform.localScale.x, out rHit, 1);
+				bool isHit2 = Physics.Raycast (new Vector3(pos.x, pos.y+1.0f, pos.z), Vector3.right * (int)transform.localScale.x, out rHit2, 1);
+				canThrough = (!isHit || !m_NGTags.Contains (rHit.transform.tag)) && (!isHit2 || !m_NGTags.Contains (rHit2.transform.tag));
+			}
+			Debug.DrawRay(transform.position, Vector3.right * (int)transform.localScale.x, Color.blue, 1f);
+			if (!canThrough) {
+				return;
+			}
+			float x = Input.GetAxis ("Horizontal");
+			float value =  x > 0 ? 0.03f : -0.03f;
+			value = x == 0 ? 0 : value;
+			this.transform.position += new Vector3 (value, 0, 0);
+
+			//Debug.Log(hit.transform.position > );
+//			if (this.transform.position.y+0.3f > hit.transform.position.y) {
+//				if (m_Controller.stepOffset == 0) {
+//					this.m_Controller.stepOffset = 0.7f;
+//					this.m_Controller.slopeLimit = 90f;
+//				}
+//			} else {
+//				this.m_Controller.stepOffset = 0.0f;
+//				this.m_Controller.slopeLimit = 0;
+//			}*/
 		}
 	}
 		

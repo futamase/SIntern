@@ -64,17 +64,20 @@ public class PrincessScript : PlayerBaseScript {
 	}
 
 	private bool IsTouch(Vector3 targetPos){
+		if(Mathf.Abs(targetPos.y - transform.position.y) > 0.5){
+			return false;
+		}
 		float distance = this.transform.position.x - targetPos.x;
 		if (this.transform.localScale.x > 0) {
-			return -2 < distance && distance < 0;
+			return -1.5 < distance && distance < 0;
 		} else {
-			return 0 < distance && distance < 2;
+			return 0 < distance && distance < 1.5;
 		}
 	}
 
 	private void PutKey(){
 		Vector3 pos = this.transform.position;
-		var go = Instantiate(m_Key, new Vector3(pos.x+ 1, pos.y-0.5f, 0), Quaternion.identity) as GameObject;
+		var go = Instantiate(m_Key, new Vector3(pos.x+ 1, pos.y, 0), Quaternion.identity) as GameObject;
         GameManager.I.AddGameObject(go, GameManager.Type.Dynamic);
 		m_HasKey = false;
 	}
@@ -86,7 +89,7 @@ public class PrincessScript : PlayerBaseScript {
 	}
 
 	void OnCollisionEnter(Collision collision) {
-		Debug.Log (collision);
+		base.OnCollisionEnter (collision);
 		switch (collision.transform.tag) {
 		case "Enemy":
 			Dead ();

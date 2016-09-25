@@ -31,6 +31,7 @@ public class RobotScript : PlayerBaseScript {
 	}
 
 	void OnCollisionEnter(Collision collision) {
+		base.OnCollisionEnter (collision);
 		Debug.Log (collision);
 		switch (collision.transform.tag) {
 		case "Lift":

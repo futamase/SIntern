@@ -36,6 +36,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     // ステージ毎のコンボ数
     private int[] m_ComboList = new int[7];
 
+
     private GameObject m_StaticObjectsParent;
     private GameObject m_DynamicObjectsParent;
 
@@ -89,7 +90,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
         m_StaticObjectsParent = m_StaticObjectsParent ?? new GameObject("StaticParent");
         m_DynamicObjectsParent = m_DynamicObjectsParent ?? new GameObject("DynamicParent");
 
-        for (int i = 0; i < m_Row; i++)
+		for (int i = 0; i < m_Row; i++)
         {
             for (int j = 0; j < m_Col; j++)
             {
