@@ -66,6 +66,7 @@ public class PlayerBaseScript : MonoBehaviour {
 
 	public void Dead(){
 		Debug.Log ("Dead");
+		PauseCanvasScript.I.GameOver ();
 		this.m_IsAlive = false;
 		Destroy (this.transform.gameObject);
 	}
@@ -81,7 +82,7 @@ public class PlayerBaseScript : MonoBehaviour {
 
 	List<string> m_ClimbTags = new List<string>(){"Block","FixedBlock","Lift"};
 
-	void OnControllerColliderHit(ControllerColliderHit hit) {
+	public void OnControllerColliderHit(ControllerColliderHit hit) {
 		
 		string tag = hit.transform.tag;
 		float r = 0f;
@@ -108,10 +109,14 @@ public class PlayerBaseScript : MonoBehaviour {
 			foreach (Collider col in colliders) {
 				if (m_ClimbTags.Contains (col.transform.tag)) {
 					Vector3 pos = transform.position;
-					float xLimit = col.transform.tag == "Lift" ? 2.0f : 1.3f;
+					float xLimit = 1.3f;
+					if (col.transform.tag == "Lift") {
+						xLimit += (col.transform.localScale.x - 1.0f) * 0.4f;
+					}
 					float diff = col.transform.position.y - pos.y;
 					if (minY < diff && diff < maxY && 
 						Mathf.Abs(col.transform.position.x - pos.x) < xLimit) {
+						Debug.Log ("OK");
 						if (0 < transform.localScale.x && pos.x < col.transform.position.x ||
 						   0 > transform.localScale.x && pos.x > col.transform.position.x) {
 							isDownThrough = true;

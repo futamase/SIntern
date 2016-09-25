@@ -16,7 +16,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     private float m_OffsetX, m_OffsetY;
 
     // 今何ステージ目か
-    private int m_StageCount = 7;
+    private int m_StageCount = 1;
 
     // ステージ毎のコンボ数
     private int[] m_ComboList = new int[7];
@@ -90,7 +90,32 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
                 }
             }
         }
+		GenerateWallAndCelling (topLeft, m_Row, m_Col);
+
     }
+
+	void GenerateWallAndCelling(Vector3 topLeft, int m_Row, int m_Col){
+		//Celling
+		for (int i = 0; i < m_Row + 2; i++) {
+			GenerateFloor (topLeft.x + i + 0.5f, topLeft.y - (-1 + 0.5f));
+		}
+		//Wall
+		for (int i = -1; i < m_Col + 2; i++) {
+			GenerateFloor (topLeft.x -1 + 0.5f, topLeft.y - (i + 0.5f));
+			GenerateFloor (topLeft.x + m_Row + 2 + 0.5f, topLeft.y - (i + 0.5f));
+		}
+
+	}
+
+	void GenerateFloor(float x, float y){
+		//FloorじゃないけどFloorで代用
+		GameObject _obj = Resources.Load("Prefabs/Floor") as GameObject;
+		var _go = Instantiate(_obj, 
+			new Vector3(x, y), 
+			Quaternion.identity) as GameObject;
+		this.AddGameObject(_go, Type.Static);
+
+	}
 
     private void UpdateUI()
     {
@@ -248,6 +273,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
                 GameObject obj = Resources.Load("Prefabs/Block") as GameObject;
                 var instance = Instantiate(obj, genePos, Quaternion.identity) as GameObject;
                 this.AddGameObject(instance, Type.Dynamic);
+					SoundManager.I.PlaySE ("creating_block");
             });
 
         m_ComboList[m_StageCount - 1]++;
@@ -279,7 +305,8 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
                 hit.transform.GetComponent<SpriteRenderer>().enabled = false;
                 hit.transform.GetComponent<BoxCollider>().enabled = false;
                 var particle = hit.transform.GetComponentInChildren<ParticleSystem>();
-                particle.Play();
+				SoundManager.I.PlaySE ("brick_crash");
+				particle.Play();
                 DOTween.To(() => alpha, (x) => alpha = x, 0, 1f)
                     .OnComplete(() =>
                     {

@@ -16,14 +16,18 @@ public class PauseCanvasScript : SingletonMonoBehaviour<PauseCanvasScript> {
 			Destroy(this);
 			return;
 		}
-
 		DontDestroyOnLoad(this.gameObject);
 	}
 
 	// Use this for initialization
 	void Start () {
-		//ResetUI = this.transform.FindChild ("Reset").gameObject;
-		//GameOverUI = this.transform.FindChild ("GameOver").gameObject;
+		if (ResetUI == null) {
+			ResetUI = GameObject.Find ("Reset");
+		}
+		if (GameOverUI == null) {
+			GameOverUI = GameObject.Find ("GameOver");
+		}
+
 
 		ResetUI.transform.FindChild("ResetButton").GetComponent<Button>().onClick.AddListener (Reset);
 		ResetUI.transform.FindChild("CancelButton").GetComponent<Button>().onClick.AddListener (PauseCancel);
@@ -52,6 +56,7 @@ public class PauseCanvasScript : SingletonMonoBehaviour<PauseCanvasScript> {
 
 	public void GameOver(){
 		Time.timeScale = 0;
+		Debug.Log (GameObject.Find ("GameOver"));
 		GameOverUI.SetActive (true);
 	}
 
