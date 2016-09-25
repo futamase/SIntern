@@ -16,3 +16,7 @@
 /Users/masahiro/Documents/Unity/SIntern/EscapeGame/Temp/bin/Debug/Unity.CecilTools.dll
 /Users/masahiro/Documents/Unity/SIntern/EscapeGame/Temp/bin/Debug/Mono.Cecil.Pdb.dll
 /Users/masahiro/Documents/Unity/SIntern/EscapeGame/Temp/bin/Debug/Mono.Cecil.Mdb.dll
+/Users/masahiro/Documents/Unity/SIntern/EscapeGame/Temp/bin/Debug/DOTween.dll
+/Users/masahiro/Documents/Unity/SIntern/EscapeGame/Temp/bin/Debug/DOTween43.dll
+/Users/masahiro/Documents/Unity/SIntern/EscapeGame/Temp/bin/Debug/DOTween46.dll
+/Users/masahiro/Documents/Unity/SIntern/EscapeGame/Temp/bin/Debug/DOTween50.dll
