@@ -410,6 +410,12 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
                 hit.transform.GetComponent<SpriteRenderer>().enabled = false;
                 hit.transform.GetComponent<BoxCollider>().enabled = false;
                 var particle = hit.transform.GetComponentInChildren<ParticleSystem>();
+
+                var shine = hit.transform.FindChild("shine_effect");
+                if (shine != null)
+                {
+                    shine.gameObject.SetActive(false);
+                }
                 SoundManager.I.PlaySE("brick_crash");
                 particle.Play();
                 DOTween.To(() => alpha, (x) => alpha = x, 0, 1f)

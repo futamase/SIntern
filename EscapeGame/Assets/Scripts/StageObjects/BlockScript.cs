@@ -41,7 +41,8 @@ public class BlockScript : MonoBehaviour {
 
 	void OnDestroy(){
 		if (m_IsHidden && !m_IsQuitting) {
-            m_Instance.SetActive(true);
+            if(m_Instance != null)
+                m_Instance.SetActive(true);
 		}
 	}
 
