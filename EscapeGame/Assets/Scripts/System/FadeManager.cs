@@ -14,6 +14,8 @@ public class FadeManager : SingletonMonoBehaviour<FadeManager>
     private Texture2D m_texture;
     private bool m_isEnable = false;
 
+    public Color color = Color.black;
+
     void Awake()
     {
         if (this != I)
@@ -33,7 +35,7 @@ public class FadeManager : SingletonMonoBehaviour<FadeManager>
     {
         if (!m_isEnable)
             return;
-        GUI.color = new Color(0,0,0, m_alpha);
+        GUI.color = new Color(color.r, color.g, color.b, m_alpha);// new Color(0,0,0, m_alpha);
         GUI.DrawTexture(new Rect( 0, 0, Screen.width, Screen.height ), m_texture );
     }
 
