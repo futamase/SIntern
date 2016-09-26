@@ -42,6 +42,10 @@ public class PlayerBaseScript : MonoBehaviour {
 				}
 			}
 		}
+
+		if(this.transform.position.y < -10.0f){
+			Dead ();
+		}
 	}
 
 	void Move(){
