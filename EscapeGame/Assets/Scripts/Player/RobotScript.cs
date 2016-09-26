@@ -4,10 +4,13 @@ using System.Collections.Generic;
 
 public class RobotScript : PlayerBaseScript {
 
+	Animator animator;
+
 	// Use this for initialization
 	new void Start () {
 		base.Start ();
 		ChangeCharacter (false);
+		animator = GetComponent<Animator> ();
 
 	}
 
@@ -21,6 +24,7 @@ public class RobotScript : PlayerBaseScript {
 	}
 
 	private void DestroyBlock(){
+		animator.SetTrigger ("Crush");
         GameManager.I.ActionRobo(transform, Input.GetKey(KeyCode.LeftShift));
 	}
 

@@ -7,8 +7,9 @@ public class LiftScript : MonoBehaviour {
 
 	private bool m_IsCollision;
 	private bool m_IsMoving;
-    [SerializeField]
 	private bool m_IsDown;
+	[SerializeField]
+	private bool m_FirstDown = true;
 
 	// Use this for initialization
 	void Start () {
@@ -34,7 +35,12 @@ public class LiftScript : MonoBehaviour {
 	private IEnumerator MoveCoroutine(float distance, bool isDown) {
 		m_IsMoving = true;
 		m_IsDown = isDown;
-		float limit = isDown ? m_firstPosition.y - distance : m_firstPosition.y;
+		float limit = 0;
+		if (m_FirstDown) {
+			limit = isDown ? m_firstPosition.y - distance : m_firstPosition.y;
+		} else {
+			limit = isDown ? m_firstPosition.y : m_firstPosition.y + distance;
+		}
 		float diff = isDown ? -0.1f : 0.1f;
 		for (int i = 0; i < distance*10; i++) {
 			if (m_IsCollision) {
