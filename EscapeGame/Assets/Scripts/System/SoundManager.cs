@@ -22,15 +22,15 @@ public class SoundManager : SingletonMonoBehaviour<SoundManager>
         }
 
         DontDestroyOnLoad(this.gameObject);
-    }
 
-    void Start()
-    {
-        for(int i = 0; i < m_BGM.Length; i++)
+        for (int i = 0; i < m_BGM.Length; i++)
+        {
             m_BGMDictionary.Add(m_BGM[i].name, i);
-
+        }
         for (int i = 0; i < m_SE.Length; i++)
+        {
             m_SEDictionary.Add(m_SE[i].name, i);
+        }
 
         m_BGMSource = this.gameObject.AddComponent<AudioSource>();
         m_SESource = this.gameObject.AddComponent<AudioSource>();
