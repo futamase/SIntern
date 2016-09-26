@@ -369,13 +369,15 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
 
     }
 
+    bool m_hoge = false;
+
     // 姫さまアクション
     public bool ActionHime(Transform tr)
     {
 
         RaycastHit hit;
-        bool isHit = Physics.Raycast(tr.position, Vector3.right * (int)tr.localScale.x, out hit, 0.7f);
-        Debug.DrawRay(tr.position, Vector3.right * (int)tr.localScale.x, Color.blue, 0.7f);
+        bool isHit = Physics.Raycast(tr.position, Vector3.right * (int)tr.localScale.x, out hit, 0.85f);
+//        Debug.DrawRay(tr.position, Vector3.right * (int)tr.localScale.x, Color.blue, 0.85f);
 		if (isHit)
             return false;
 
@@ -397,6 +399,9 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
             tr.position.y);
         // m_GeneratePoint.y - p.y - 0.5f);
 
+        if (m_hoge) return false;
+        m_hoge = true;
+
         tr.DOLocalMove(wannaBePos, 0.5f)
             .OnComplete(() =>
             {
@@ -406,12 +411,15 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
                 var instance = Instantiate(obj, genePos, Quaternion.identity) as GameObject;
                 this.AddGameObject(instance, Type.Dynamic);
                 instance.transform.localScale = Vector3.zero;
-                instance.transform.DOScale(new Vector3(1, 1, 1), 0.5f);
+                instance.transform.DOScale(new Vector3(1, 1, 1), 0.5f)
+                .OnComplete(()=> { m_hoge = false; });
             });
         m_ComboList[m_StageCount - 1]++;
 
         return true;
     }
+
+    bool m_IsAlreadyAction = false;
 
     // ロボアクション
     public void ActionRobo(Transform tr, bool isPressedShift)
@@ -424,13 +432,18 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
             isPressedShift ? tr.position + new Vector3(0, 0.5f) : tr.position - new Vector3(0, 0.5f), // Shift押してたら上、else 下 
             Vector3.right * (int)tr.localScale.x,
             out hit,
-            0.7f);
-        Debug.DrawRay(
-            isPressedShift ? tr.position + new Vector3(0, 0.5f) : tr.position - new Vector3(0, 0.5f), // Shift押してたら上、else 下 
-            Vector3.right * (int)tr.localScale.x, Color.blue, 0.7f);
+            0.85f);
+//        Debug.DrawRay(
+//            isPressedShift ? tr.position + new Vector3(0, 0.5f) : tr.position - new Vector3(0, 0.5f), // Shift押してたら上、else 下 
+//            Vector3.right * (int)tr.localScale.x, Color.blue, 0.85f);
 
         if (isHit)
         {
+            if (m_IsAlreadyAction)
+                return;
+            m_IsAlreadyAction = true;
+            
+
             // ブロックのときのみ壊す
             if (hit.transform.tag == "Block")
             {
@@ -450,6 +463,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
                 DOTween.To(() => alpha, (x) => alpha = x, 0, 1f)
                     .OnComplete(() =>
                     {
+                        m_IsAlreadyAction = false;
                         Destroy(hit.transform.gameObject);
                     });
             }
@@ -463,12 +477,14 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
                     .SetEase(Ease.InExpo)
                     .OnComplete(() =>
                     {
+                        m_IsAlreadyAction = false;
                         Destroy(hit.transform.gameObject);
                     });
             }
             else if(hit.transform.tag == "Boss")
             {
                 hit.transform.GetComponent<BossScript>().Damage();
+                m_IsAlreadyAction = false;
             }
 
             m_ComboList[m_StageCount - 1]++;
