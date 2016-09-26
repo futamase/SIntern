@@ -180,6 +180,19 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
         m_ComboText = go.transform.FindChild("ActCount").GetComponent<Text>();
 
         m_FloorCountText.text = "Floor " + (8-m_StageCount).ToString();
+
+        m_Prelude.SetActive(true);
+        Time.timeScale = 0f;
+        m_Prelude.transform.FindChild("Text").GetComponent<Text>().text = "Floor " + (8 - m_StageCount).ToString();
+        var image = m_Prelude.transform.FindChild("RawImage").GetComponent<RawImage>();
+        image.DOColor(new Color(0, 0, 0, 0), 2f)
+            .SetEase(Ease.InExpo)
+            .OnComplete(() =>
+            {
+                Time.timeScale = 1f;
+                m_Prelude.SetActive(false);
+                image.color = new Color(0, 0, 0, 0.5f);
+            });
     }
 
     // ロードシーンのフロア名を管理しつつ、アニメーションが終わり次第次のステージへ
@@ -344,32 +357,32 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     }
 
     // 姫さまアクション
-    public void ActionHime(Transform tr)
+    public bool ActionHime(Transform tr)
     {
 
         RaycastHit hit;
         bool isHit = Physics.Raycast(tr.position, Vector3.right * (int)tr.localScale.x, out hit, 0.7f);
         Debug.DrawRay(tr.position, Vector3.right * (int)tr.localScale.x, Color.blue, 0.7f);
 		if (isHit)
-            return;
+            return false;
 
 
         var p = this.GetPlayerPos(tr.position);
         // 範囲外チェック
         if (p.x == -1 || p.y == -1)
-            return;
+            return false;
 
         // 生成する
         var x = p.x + (int)tr.localScale.x;
 
         // 生成する位置が範囲外だったらダメ
         if (x == -1 || x == m_Col)
-            return;
+            return false;
 
         Vector3 wannaBePos = new Vector3(
             m_GeneratePoint.x + p.x + 0.5f,
             tr.position.y);
-           // m_GeneratePoint.y - p.y - 0.5f);
+        // m_GeneratePoint.y - p.y - 0.5f);
 
         tr.DOLocalMove(wannaBePos, 0.5f)
             .OnComplete(() =>
@@ -382,6 +395,8 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
             });
 
         m_ComboList[m_StageCount - 1]++;
+
+        return true;
     }
 
     // ロボアクション
