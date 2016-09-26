@@ -398,13 +398,12 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
         tr.DOLocalMove(wannaBePos, 0.5f)
             .OnComplete(() =>
             {
+				SoundManager.I.PlaySE("creating_block");
                 Vector3 genePos = new Vector3(m_GeneratePoint.x + x + 0.5f, m_GeneratePoint.y - p.y - 0.5f);
                 GameObject obj = Resources.Load("Prefabs/Block") as GameObject;
                 var instance = Instantiate(obj, genePos, Quaternion.identity) as GameObject;
                 this.AddGameObject(instance, Type.Dynamic);
-                SoundManager.I.PlaySE("creating_block");
             });
-
         m_ComboList[m_StageCount - 1]++;
 
         return true;
