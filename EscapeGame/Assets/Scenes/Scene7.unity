@@ -543,26 +543,13 @@ Prefab:
       propertyPath: m_RootOrder
       value: 13
       objectReference: {fileID: 0}
+    - target: {fileID: 1000012639750826, guid: 4d1b6e182d6dd41d7ab0874818b45b8b, type: 2}
+      propertyPath: m_TagString
+      value: Boss
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 4d1b6e182d6dd41d7ab0874818b45b8b, type: 2}
   m_IsPrefabParent: 0
---- !u!1 &1684376743 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1000012639750826, guid: 4d1b6e182d6dd41d7ab0874818b45b8b,
-    type: 2}
-  m_PrefabInternal: {fileID: 1684376742}
---- !u!65 &1684376744
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1684376743}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 3.55, y: 4.27, z: 0.2}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &1888555642
 Prefab:
   m_ObjectHideFlags: 0

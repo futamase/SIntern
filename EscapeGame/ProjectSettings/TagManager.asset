@@ -14,6 +14,7 @@ TagManager:
   - Lift
   - FixedBlock
   - Door
+  - Boss
   layers:
   - Default
   - TransparentFX

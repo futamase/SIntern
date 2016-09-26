@@ -19,7 +19,10 @@ public class RobotScript : PlayerBaseScript {
 	// Update is called once per frame
 	new void Update () {
 		base.Update ();
-		float x = Input.GetAxis ("Horizontal");
+		float x = 0;
+		if(this.m_IsUsing){
+			x = Input.GetAxis ("Horizontal");
+		}
 		animator.SetBool ("IsWalking", Mathf.Abs(x)> 0 );
 		m_beforePosition = this.transform.position;
 	}
