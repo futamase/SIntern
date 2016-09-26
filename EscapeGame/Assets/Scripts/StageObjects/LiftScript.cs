@@ -11,6 +11,10 @@ public class LiftScript : MonoBehaviour {
 	[SerializeField]
 	private bool m_FirstDown = true;
 
+	[SerializeField]
+	private float m_Speed = 0.1f;
+
+
 	// Use this for initialization
 	void Start () {
 		this.m_firstPosition = this.transform.position;
@@ -42,13 +46,13 @@ public class LiftScript : MonoBehaviour {
 		} else {
 			limit = isDown ? m_firstPosition.y : m_firstPosition.y + distance;
 		}
-		float diff = isDown ? -0.1f : 0.1f;
-		for (int i = 0; i < distance*10; i++) {
+		float diff = isDown ? -1* m_Speed : m_Speed;
+		for (int i = 0; i < distance/m_Speed; i++) {
 			if (m_IsCollision) {
 				break;
 			}
 			this.transform.position = new Vector3 (this.transform.position.x, this.transform.position.y + diff, 0);
-			yield return new WaitForSeconds (0.1f);  
+			yield return new WaitForSeconds (m_Speed);  
 			if (isDown && this.transform.position.y <= limit) {
 				break;
 			} else if (!isDown && this.transform.position.y >= limit) {
