@@ -32,7 +32,7 @@ public class SwitchScript : MonoBehaviour {
 		m_isPushed = !m_isPushed;
 		m_TargetLift.GetComponent<LiftScript> ().Move (m_isPushed, m_MoveDistance);
 		//animator.SetFloat ("Speed", -1.0f);
-		animator.SetBool ("IsPush", m_isPushed);
+		animator.SetBool ("IsPush", !animator.GetBool("IsPush"));
 	}
 
 	public void Reset(){
