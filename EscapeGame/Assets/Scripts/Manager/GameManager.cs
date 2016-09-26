@@ -446,8 +446,8 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
             }
             else if(hit.transform.tag == "Enemy")
             {
-                hit.transform.Rotate(0, 0, 10f);
-                hit.transform.DOScale(0f, 1f)
+                hit.transform.DOScale(0f, 1.5f)
+                    .SetEase(Ease.InExpo)
                     .OnComplete(() =>
                     {
                         Destroy(hit.transform.gameObject);
