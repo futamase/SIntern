@@ -4,15 +4,16 @@ using System.Collections;
 public class BossScript : MonoBehaviour {
 
 	private float m_timeLeft = 0.0f;
-	const float ATTACK_TIME = 3.0f;
+	const float ATTACK_TIME = 30.0f;
 
-	[SerializeField]
-	private bool m_IsHidden = false;
+	private bool m_IsHidden = true;
 	private GameObject m_Obj;
 	private bool m_IsQuitting = false;
 
 	private Vector3 m_FirstPosition;
 	private GameObject m_Instance;
+
+    private int m_HP = 2;
 
 	// Use this for initialization
 	void Start () {
@@ -24,7 +25,8 @@ public class BossScript : MonoBehaviour {
 			m_Instance = Instantiate(m_Obj, new Vector3(pos.x, pos.y, 0), Quaternion.identity) as GameObject;
 
 			m_Instance.SetActive(false);
-			GameManager.I.AddGameObject(m_Instance, GameManager.Type.Static);
+            //			GameManager.I.AddGameObject(m_Instance, GameManager.Type.Static);
+            Debug.Log("ボケたろう");
 		}
 	}
 	
@@ -43,6 +45,15 @@ public class BossScript : MonoBehaviour {
 			Destroy (o);
 		}
 	}
+
+    public void Damage()
+    {
+        m_HP--;
+        if(m_HP == 0)
+        {
+            Destroy(this.gameObject);
+        }
+    }
 
 	void OnApplicationQuit ()
 	{
