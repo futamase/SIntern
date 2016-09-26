@@ -4,7 +4,7 @@ using System.Collections;
 public class BossScript : MonoBehaviour {
 
 	private float m_timeLeft = 0.0f;
-	const float ATTACK_TIME = 25.0f;
+	const float ATTACK_TIME = 10.0f;
 
 	private bool m_IsHidden = true;
 	private GameObject m_Obj;
@@ -13,7 +13,7 @@ public class BossScript : MonoBehaviour {
 	private Vector3 m_FirstPosition;
 	private GameObject m_Instance;
 
-    private int m_HP = 2;
+    private int m_HP = 5;
 
 	// Use this for initialization
 	void Start () {
@@ -43,7 +43,7 @@ public class BossScript : MonoBehaviour {
 
 	private IEnumerator BossAttackCoroutine() {
 		SoundManager.I.PlaySE("boss_laughter");
-		yield return new WaitForSeconds (6.0f);
+		yield return new WaitForSeconds (5.0f);
 		GameObject[] blocks = GameObject.FindGameObjectsWithTag ("Block");
 		foreach (GameObject o in blocks) {
 			Destroy (o);
