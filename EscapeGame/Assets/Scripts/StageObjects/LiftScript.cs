@@ -88,7 +88,7 @@ public class LiftScript : MonoBehaviour {
 		float y = obj.GetComponent<SpriteRenderer> ().bounds.size.y;
 		for (int i = 0; i < 5; i++) {
 			Vector3 pos = this.transform.position;
-			var go = Instantiate (obj, new Vector3 (pos.x, pos.y + y / 2.0f + y*i), Quaternion.identity) as GameObject;
+			var go = Instantiate (obj, new Vector3 (pos.x, pos.y + y / 2.0f + y*i, 1), Quaternion.identity) as GameObject;
 			go.transform.parent = this.transform;
 		}
 	}
