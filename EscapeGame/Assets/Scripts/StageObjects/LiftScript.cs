@@ -14,6 +14,7 @@ public class LiftScript : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		this.m_firstPosition = this.transform.position;
+		GenerateChain ();
 	
 	}
 	
@@ -76,5 +77,15 @@ public class LiftScript : MonoBehaviour {
 
 	public bool IsLiftDown(){
 		return this.m_IsDown;
+	}
+
+	void GenerateChain(){
+		GameObject obj = Resources.Load("Prefabs/Chain") as GameObject;
+		float y = obj.GetComponent<SpriteRenderer> ().bounds.size.y;
+		for (int i = 0; i < 5; i++) {
+			Vector3 pos = this.transform.position;
+			var go = Instantiate (obj, new Vector3 (pos.x, pos.y + y / 2.0f + y*i), Quaternion.identity) as GameObject;
+			go.transform.parent = this.transform;
+		}
 	}
 }
