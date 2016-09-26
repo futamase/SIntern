@@ -104,13 +104,13 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
         //Celling
         for (int i = 0; i < m_Col; i++)
         {
-            GenerateWall(topLeft.x + i + 0.5f, topLeft.y - (-1 + 0.5f));
+            GenerateWall(topLeft.x + i + 0.5f, topLeft.y + 2 - (-1 + 0.5f));
         }
         //Wall
-        for (int i = -1; i < m_Row + 1; i++)
+        for (int i = -1; i < m_Row + 3; i++)
         {
-            GenerateWall(topLeft.x - 1 + 0.5f, topLeft.y - (i + 0.5f));
-            GenerateWall(topLeft.x + m_Col + 0.5f, topLeft.y - (i + 0.5f));
+            GenerateWall(topLeft.x - 1 + 0.5f, topLeft.y  + 2 - (i + 0.5f));
+            GenerateWall(topLeft.x + m_Col + 0.5f, topLeft.y + 2 - (i + 0.5f));
         }
 
     }
