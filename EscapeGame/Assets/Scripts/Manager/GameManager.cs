@@ -451,6 +451,10 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
                         Destroy(hit.transform.gameObject);
                     });
             }
+            else if(hit.transform.tag == "FixedBlock")
+            {
+                SoundManager.I.PlaySE("gain");
+            }
             else if(hit.transform.tag == "Enemy")
             {
                 hit.transform.DOScale(0f, 1.5f)
