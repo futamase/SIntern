@@ -176,10 +176,10 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
 
         var prefab = Resources.Load("Prefabs/StageInfoCanvas") as GameObject;
         var go = Instantiate(prefab);
-//        m_FloorCountText = go.transform.FindChild("FloorCount").GetComponent<Text>();
+        m_FloorCountText = go.transform.FindChild("FloorCount").GetComponent<Text>();
         m_ComboText = go.transform.FindChild("ActCount").GetComponent<Text>();
 
-//        m_FloorCountText.text = "Floor " + (8-m_StageCount).ToString();
+        m_FloorCountText.text = "Floor " + (8-m_StageCount).ToString();
 
         SoundManager.I.PlayBGM("title");
 
@@ -229,10 +229,10 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
 
         var prefab = Resources.Load("Prefabs/StageInfoCanvas") as GameObject;
         var go = Instantiate(prefab);
-//        m_FloorCountText = go.transform.FindChild("FloorCount").GetComponent<Text>();
+        m_FloorCountText = go.transform.FindChild("FloorCount").GetComponent<Text>();
         m_ComboText = go.transform.FindChild("ActCount").GetComponent<Text>();
 
-//        m_FloorCountText.text = "Floor " + (8-m_StageCount).ToString();
+        m_FloorCountText.text = "Floor " + (8-m_StageCount).ToString();
 
         SoundManager.I.PlayBGM("title");
     }
