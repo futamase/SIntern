@@ -10,7 +10,7 @@ public class PlayerBaseScript : MonoBehaviour {
 	private Vector3	m_Move = Vector3.zero;
 	private float m_Speed = 2.5f;
 	private const float	GRAVITY = 19.8f;			// 重力
-	private bool m_IsUsing = true;
+	protected bool m_IsUsing = true;
 	private bool m_IsAlive = true;
 	private Vector3 m_firstPosition;
 

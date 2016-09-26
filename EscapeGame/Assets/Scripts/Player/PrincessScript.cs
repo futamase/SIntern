@@ -8,16 +8,23 @@ public class PrincessScript : PlayerBaseScript {
 	public bool m_HasKey;
 	public GameObject m_Key;
 
+    private Animator m_Animator;
+
 	// Use this for initialization
 	new void Start () {
 		base.Start ();
 		m_HasKey = false;
 		ChangeCharacter (true);
+
+        m_Animator = transform.GetComponent<Animator>();
 	}
 	
 	// Update is called once per frame
 	new void Update () {
 		base.Update ();
+        
+        if(m_IsUsing)
+            m_Animator.SetFloat("Horizontal", Mathf.Abs(Input.GetAxis("Horizontal")));
 	}
 
 	public override void Action(){
@@ -44,6 +51,7 @@ public class PrincessScript : PlayerBaseScript {
 		if (this.IsTouch(Key.transform.position)) {
 			Destroy (Key);
 			m_HasKey = true;
+            m_Animator.SetBool("HasKey", m_HasKey);
 			return true;
 		}
 		return false;
@@ -81,11 +89,15 @@ public class PrincessScript : PlayerBaseScript {
 		var go = Instantiate(m_Key, new Vector3(pos.x, pos.y, 0), Quaternion.identity) as GameObject;
         GameManager.I.AddGameObject(go, GameManager.Type.Dynamic);
 		m_HasKey = false;
+        m_Animator.SetBool("HasKey", m_HasKey);
 	}
 
 	private void GenerateBlock(){
 		
-        GameManager.I.ActionHime(this.transform);
+        if(GameManager.I.ActionHime(this.transform))
+        {
+            m_Animator.SetTrigger("CreateBlock");
+        }
 	}
 
 	void OnTriggerEnter(Collider other){
@@ -111,6 +123,7 @@ public class PrincessScript : PlayerBaseScript {
 		base.Reset ();
 		m_HasKey = false;
 		ChangeCharacter (true);
+        m_Animator.SetBool("HasKey", m_HasKey);
 	}
 
 }
