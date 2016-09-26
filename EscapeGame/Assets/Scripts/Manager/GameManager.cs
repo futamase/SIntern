@@ -319,7 +319,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
         m_StaticObjectsParent = null;
         m_DynamicObjectsParent = null;
         m_ComboText = null;
-//        m_FloorCountText = null;
+        m_FloorCountText = null;
         SceneManager.LoadScene("Scene" + m_StageCount.ToString());
 
         m_Prelude.SetActive(true);
@@ -405,6 +405,8 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
                 GameObject obj = Resources.Load("Prefabs/Block") as GameObject;
                 var instance = Instantiate(obj, genePos, Quaternion.identity) as GameObject;
                 this.AddGameObject(instance, Type.Dynamic);
+                instance.transform.localScale = Vector3.zero;
+                instance.transform.DOScale(new Vector3(1, 1, 1), 0.5f);
             });
         m_ComboList[m_StageCount - 1]++;
 
