@@ -6,6 +6,8 @@ public class RobotScript : PlayerBaseScript {
 
 	Animator animator;
 
+	Vector3 m_beforePosition;
+
 	// Use this for initialization
 	new void Start () {
 		base.Start ();
@@ -17,6 +19,9 @@ public class RobotScript : PlayerBaseScript {
 	// Update is called once per frame
 	new void Update () {
 		base.Update ();
+		float x = Input.GetAxis ("Horizontal");
+		animator.SetBool ("IsWalking", Mathf.Abs(x)> 0 );
+		m_beforePosition = this.transform.position;
 	}
 
 	public override void Action(){

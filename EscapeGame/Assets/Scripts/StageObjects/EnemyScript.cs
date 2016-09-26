@@ -26,6 +26,7 @@ public class EnemyScript : MonoBehaviour {
 	}
 
 	void OnCollisionEnter(Collision collision) {
+		Debug.Log (collision.transform.tag);
 		switch (collision.transform.tag) {
 		case "Block":
 			ChangeDirection ();
