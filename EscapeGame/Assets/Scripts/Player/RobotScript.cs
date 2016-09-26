@@ -32,8 +32,17 @@ public class RobotScript : PlayerBaseScript {
 	}
 
 	private void DestroyBlock(){
+		StartCoroutine (DestroyBlockCoroutine (Input.GetKey(KeyCode.LeftShift)));
+	}
+
+	private IEnumerator DestroyBlockCoroutine(bool isPushShift) {
 		animator.SetTrigger ("Crush");
-        GameManager.I.ActionRobo(transform, Input.GetKey(KeyCode.LeftShift));
+		if (isPushShift) {
+			yield return new WaitForSeconds (0.5f);
+		} else {
+			yield return new WaitForSeconds (0.4f);
+		}
+		GameManager.I.ActionRobo(transform, isPushShift);
 	}
 
 //	void OnCollisionEnter(Collision collision) {

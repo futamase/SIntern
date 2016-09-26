@@ -28,7 +28,7 @@ public class LiftScript : MonoBehaviour {
 		if (this.m_IsMoving) {
 			return;
 		}
-		SoundManager.I.PlaySE("anchor_chain");
+		SoundManager.I.PlaySE("anchor_chain_short");
 		StartCoroutine (MoveCoroutine (distance, isDown));
 	}
 
