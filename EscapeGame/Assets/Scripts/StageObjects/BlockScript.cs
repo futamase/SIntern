@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using DG.Tweening;
 
 public class BlockScript : MonoBehaviour {
 
@@ -41,8 +42,13 @@ public class BlockScript : MonoBehaviour {
 
 	void OnDestroy(){
 		if (m_IsHidden && !m_IsQuitting) {
-            if(m_Instance != null)
+            if (m_Instance != null)
+            {
+                var r = m_Instance.GetComponentInChildren<SpriteRenderer>();
+                r.color = new Color(0, 0, 0, 0);
                 m_Instance.SetActive(true);
+                r.DOColor(Color.white, .2f);
+            }
 		}
 	}
 

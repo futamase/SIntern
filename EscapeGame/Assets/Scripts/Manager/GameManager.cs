@@ -176,10 +176,10 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
 
         var prefab = Resources.Load("Prefabs/StageInfoCanvas") as GameObject;
         var go = Instantiate(prefab);
-        m_FloorCountText = go.transform.FindChild("FloorCount").GetComponent<Text>();
+//        m_FloorCountText = go.transform.FindChild("FloorCount").GetComponent<Text>();
         m_ComboText = go.transform.FindChild("ActCount").GetComponent<Text>();
 
-        m_FloorCountText.text = "Floor " + (8-m_StageCount).ToString();
+//        m_FloorCountText.text = "Floor " + (8-m_StageCount).ToString();
 
         m_Prelude.SetActive(true);
         Time.timeScale = 0f;
@@ -227,10 +227,10 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
 
         var prefab = Resources.Load("Prefabs/StageInfoCanvas") as GameObject;
         var go = Instantiate(prefab);
-        m_FloorCountText = go.transform.FindChild("FloorCount").GetComponent<Text>();
+//        m_FloorCountText = go.transform.FindChild("FloorCount").GetComponent<Text>();
         m_ComboText = go.transform.FindChild("ActCount").GetComponent<Text>();
 
-        m_FloorCountText.text = "Floor " + (8-m_StageCount).ToString();
+//        m_FloorCountText.text = "Floor " + (8-m_StageCount).ToString();
 
         SoundManager.I.PlayBGM("title");
     }
@@ -303,7 +303,11 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
 
     public void GotoEnding()
     {
-        SceneManager.LoadScene("Ending");
+        FadeManager.I.color = Color.white;
+        FadeManager.I.Fade(4f, () =>
+        {
+            SceneManager.LoadScene("Ending");
+        });
     }
 
     // 次のステージへ
@@ -313,7 +317,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
         m_StaticObjectsParent = null;
         m_DynamicObjectsParent = null;
         m_ComboText = null;
-        m_FloorCountText = null;
+//        m_FloorCountText = null;
         SceneManager.LoadScene("Scene" + m_StageCount.ToString());
 
         m_Prelude.SetActive(true);

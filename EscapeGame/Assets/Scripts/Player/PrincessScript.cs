@@ -22,9 +22,11 @@ public class PrincessScript : PlayerBaseScript {
 	// Update is called once per frame
 	new void Update () {
 		base.Update ();
-        
-        if(m_IsUsing)
+
+        if (m_IsUsing)
             m_Animator.SetFloat("Horizontal", Mathf.Abs(Input.GetAxis("Horizontal")));
+        else
+            m_Animator.SetFloat("Horizontal", 0);
 	}
 
 	public override void Action(){

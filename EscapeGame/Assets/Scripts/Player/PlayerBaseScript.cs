@@ -69,6 +69,15 @@ public class PlayerBaseScript : MonoBehaviour {
 
 	public void ChangeCharacter(bool IsUsing){
 		this.m_IsUsing = IsUsing;
+
+        if(IsUsing)
+        {
+            transform.GetComponent<SpriteRenderer>().color = Color.white;
+        }
+        else
+        {
+            transform.GetComponent<SpriteRenderer>().color = new Color(0.5f, 0.5f, 0.5f);
+        }
 	}
 
 	public virtual void Action(){
