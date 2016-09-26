@@ -220,6 +220,8 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
             this.SetLoadScene();
             return;
         }
+        else if (scene.name == "Ending")
+            return;
 
         this.SetBlock();
 
@@ -455,7 +457,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
             }
             else if(hit.transform.tag == "Boss")
             {
-
+                hit.transform.GetComponent<BossScript>().Damage();
             }
 
             m_ComboList[m_StageCount - 1]++;

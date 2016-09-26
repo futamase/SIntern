@@ -107,6 +107,11 @@ public class PrincessScript : PlayerBaseScript {
 				other.transform.gameObject.SendMessage ("Goal");
 			}
 		}
+        else if(other.transform.tag == "FinalDoor")
+        {
+            if (this.m_HasKey)
+                GameManager.I.GotoEnding();
+        }
 	}
 
 	void OnControllerColliderHit(ControllerColliderHit hit) {

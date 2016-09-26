@@ -15,6 +15,7 @@ TagManager:
   - FixedBlock
   - Door
   - Boss
+  - FinalDoor
   layers:
   - Default
   - TransparentFX
