@@ -181,6 +181,8 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
 
 //        m_FloorCountText.text = "Floor " + (8-m_StageCount).ToString();
 
+        SoundManager.I.PlayBGM("title");
+
         m_Prelude.SetActive(true);
         Time.timeScale = 0f;
         m_Prelude.transform.FindChild("Text").GetComponent<Text>().text = "Floor " + (8 - m_StageCount).ToString();
@@ -448,6 +450,10 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
                     {
                         Destroy(hit.transform.gameObject);
                     });
+            }
+            else if(hit.transform.tag == "FixedBlock")
+            {
+                SoundManager.I.PlaySE("gain");
             }
             else if(hit.transform.tag == "Enemy")
             {
