@@ -7,8 +7,7 @@ public class SwitchScript : MonoBehaviour {
 	private GameObject m_TargetLift;
 	[SerializeField]
 	private int m_MoveDistance;
-
-    [SerializeField]
+	[SerializeField]
 	private bool m_isPushed = false;
 
 	private Animator animator;
