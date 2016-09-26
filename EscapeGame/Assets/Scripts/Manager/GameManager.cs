@@ -299,6 +299,11 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
         }
     }
 
+    public void GotoEnding()
+    {
+        SceneManager.LoadScene("Ending");
+    }
+
     // 次のステージへ
     private void GotoNextStage()
     {
@@ -439,6 +444,20 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
                         Destroy(hit.transform.gameObject);
                     });
             }
+            else if(hit.transform.tag == "Enemy")
+            {
+                hit.transform.Rotate(0, 0, 10f);
+                hit.transform.DOScale(0f, 1f)
+                    .OnComplete(() =>
+                    {
+                        Destroy(hit.transform.gameObject);
+                    });
+            }
+            else if(hit.transform.tag == "Boss")
+            {
+
+            }
+
             m_ComboList[m_StageCount - 1]++;
         }
     }
